@@ -1,0 +1,12 @@
+dist/
+
+# IDEs
+.idea/
+.vscode/
+
+# npm
+node_modules/
+
+# OSs
+.DS_Store
+Thumbs.db
