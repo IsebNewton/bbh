@@ -1,6 +1,6 @@
 <template>
   <div class="container">
-    <h1>Impressum</h1>
+    <h1>Geben Sie die Daten des Zimmers ein.</h1>
   </div>
 </template>
 
@@ -15,7 +15,7 @@ export default {
   computed: {
   },
   mounted(){
-    this.$parent.title = "";
+    this.$parent.title = "Farbbedarfsrechner";
   },
   watch: {
   },

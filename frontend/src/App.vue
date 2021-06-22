@@ -1,7 +1,7 @@
 <template>
 <body id="app">
   <header>
-    <b-img src="assets/logo.jpg" height="50px" alt="Schönes Haus"></b-img>
+    <topbar :title="title"></topbar>
   </header>
   <router-view />
   <footer>
@@ -15,12 +15,29 @@
 </template>
 
 <script>
-require("./../public/assets/logo.jpg")
+import Topbar from './views/components/Topbar.vue';
+
+export default {
+  data() {
+    return {
+      title: 'Test'
+    };
+  },
+  components: {
+    "topbar": Topbar
+  },
+  computed: {
+  },
+  mounted(){
+  },
+  watch: {
+  },
+  methods: {
+  }
+}
 </script>
 
 <style lang="scss">
-@import url("https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap");
-
 :root {
   --font: Calibri, Candara, Segoe, "Segoe UI", Optima, Arial, sans-serif;
   --textColor: #374961;
@@ -36,15 +53,54 @@ require("./../public/assets/logo.jpg")
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   color: var(--textColor);
-
-  .logo {
-    width: 20%;
-  }
 }
 
 .container {
   margin-top: 30px;
   text-align: center;
+}
+
+.content {
+  float: left;
+  text-align: center;
+  width: 40%;
+  margin: 50px;
+}
+
+.formsection {
+  text-align: center;
+  margin: 10px;
+}
+
+.formfield {
+  text-align: left;
+  float: left;
+  width: 40%;
+  margin: 10px;
+}
+
+.logo {
+  float: left;
+}
+
+.header {
+  float: left;
+  text-align: center;
+  color: #FFFFFF;
+  width: 88%;
+  margin-top: 5px;
+}
+
+.central {
+  text-align: center;
+  margin: 50px;
+}
+
+.subcontent {
+  text-align: center;
+  margin: 10px;
+  background-color: var(--grey);
+  padding: 20px;
 }
 
 .nav {
@@ -73,5 +129,9 @@ body{
 
 footer{
   margin-top:auto; 
+}
+
+.colorcalculator{
+    background-image: url("https://puu.sh/HQW9D/9db75f433f.jpg");
 }
 </style>
