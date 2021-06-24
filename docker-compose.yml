@@ -1,0 +1,20 @@
+version: "3"
+services:
+  bbh:
+    build:
+      context: $PWD/
+      dockerfile: $PWD/Dockerfile
+    restart: always
+    networks:
+      - traefik_traefik-network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.bbh.rule=Host(`bbh.diginary.de`)"
+      - "traefik.http.routers.bbh.entrypoints=websecure"
+      - "traefik.http.routers.bbh.tls.certresolver=myresolver"
+    volumes:
+      - "$PWD/data:/usr/src/app/data"
+
+networks:
+  traefik_traefik-network:
+    external: true
