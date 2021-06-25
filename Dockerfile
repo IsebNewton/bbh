@@ -13,7 +13,6 @@ WORKDIR /usr/src/app/
 COPY --from=backend /usr/src/app/dist/ ./backend/
 COPY --from=frontend /usr/src/app/dist/ ./frontend/
 COPY data/ ./data/
-RUN ls
 
 EXPOSE 8080
 

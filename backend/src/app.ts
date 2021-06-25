@@ -1,3 +1,4 @@
+import * as cors from "cors";
 import * as express from "express";
 import * as os from "os";
 import api from "./api";
@@ -8,6 +9,7 @@ export default async function (config: Config) {
   try {
     const app = express();
 
+    app.use(cors());
     app.use(logger);
 
     app.use("/api", await api(config));

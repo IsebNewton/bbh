@@ -6,9 +6,9 @@ GET http://localhost:8080/
 
 GET http://localhost:8080/idontexist
 
-### API
+### API Brands
 
-GET http://localhost:8080/api
+GET http://localhost:8080/api/brands
 Content-Type: application/json
 
 ### API Colors
