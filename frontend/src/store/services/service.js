@@ -1,5 +1,5 @@
 
-var apiUrl = 'http://192.168.0.249:8000';
+var apiUrl = 'http://localhost:8080/api';
 
 import axios from 'axios';
 

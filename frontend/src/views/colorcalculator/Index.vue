@@ -17,7 +17,7 @@
 </template>
 
 <script>
-require("./../../../public/assets/background.jpg");
+require("./../../../public/assets/background.png");
 export default {
   data() {
     return {

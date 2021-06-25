@@ -41,7 +41,7 @@ export default {
     },
     useText: { // the name of the text-attribute which has to be use
       type: String,
-      default: "name"
+      default: "label"
     }
   },
   data() {

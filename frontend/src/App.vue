@@ -64,11 +64,23 @@ export default {
   float: left;
   text-align: center;
   width: 40%;
-  margin: 50px;
+  margin: 30px;
+}
+
+.leftform {
+  float: left;
+  text-align: center;
+  width: 55%;
 }
 
 .formsection {
-  text-align: center;
+  margin: 10px;
+}
+
+.formlabel {
+  text-align: left;
+  float: left;
+  width: 30%;
   margin: 10px;
 }
 
@@ -132,6 +144,6 @@ footer{
 }
 
 .colorcalculator{
-    background-image: url("https://puu.sh/HQW9D/9db75f433f.jpg");
+    background-image: url("https://puu.sh/HRFhn/1aacf9bea8.png");
 }
 </style>
