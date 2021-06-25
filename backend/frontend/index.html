@@ -8,6 +8,14 @@
 </head>
 <body>
     <h1>Hello World</h1>
+    <p id="hello-from-js"></p>
+    <h2>Click here to get data from the API</h2>
+    <div>
+        <button onclick="sendRequest('/api/colors')">Colors</button>
+        <button onclick="sendRequest('/api/parameters')">Parameters</button>
+        <button onclick="sendRequest('/api/products')">Products</button>
+    </div>
+    <pre><code id="response-field"></code></pre>
     <script src="main.js"></script>
 </body>
 </html>
