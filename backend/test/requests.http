@@ -1,27 +1,147 @@
-### Website
+### Website --------------------------------------------------------------------
 
 GET http://localhost:8080/
 
-### Not Existing
+###
 
 GET http://localhost:8080/idontexist
 
-### API Brands
+### API ------------------------------------------------------------------------
 
 GET http://localhost:8080/api/brands
-Content-Type: application/json
+Accept: application/json
 
-### API Colors
+###
 
 GET http://localhost:8080/api/colors
+Accept: application/json
+
+### API Auth -------------------------------------------------------------------
+
+GET http://localhost:8080/api/auth
+
+###
+
+POST http://localhost:8080/api/auth
 Content-Type: application/json
 
-### API Parameters
+{
+  "name": "admin",
+  "password": "admin"
+}
+
+###
+
+DELETE http://localhost:8080/api/auth
+
+### API Parameters -------------------------------------------------------------
 
 GET http://localhost:8080/api/parameters
+Accept: application/json
+
+###
+
+PUT http://localhost:8080/api/parameters
 Content-Type: application/json
 
-### API Products
+[
+  {
+    "id": 1,
+    "group": "Anstrichart",
+    "label": "gleiche Farbe",
+    "value": 1
+  },
+  {
+    "id": 2,
+    "group": "Anstrichart",
+    "label": "dunkel auf hell",
+    "value": 1
+  },
+  {
+    "id": 3,
+    "group": "Anstrichart",
+    "label": "hell auf dunkel",
+    "value": 2
+  },
+  {
+    "id": 4,
+    "group": "Wandbeschaffenheit",
+    "label": "glatt",
+    "value": 1
+  },
+  {
+    "id": 5,
+    "group": "Wandbeschaffenheit",
+    "label": "Raufaser",
+    "value": 2
+  },
+  {
+    "id": 6,
+    "group": "Wandbeschaffenheit",
+    "label": "Rauputz",
+    "value": 2.5
+  }
+]
+
+### API Products ---------------------------------------------------------------
 
 GET http://localhost:8080/api/products
+Accept: application/json
+
+###
+
+POST http://localhost:8080/api/products
 Content-Type: application/json
+
+{
+  "name": "HDs Finest Wall Paint",
+  "description": "Die einzige Farbe, die man braucht. Warum etwas geringeres nehmen als den Gold-Standard",
+  "brand": "Alpina",
+  "link": "https://www.obi.de/effektfarben/alpina-farbrezepte-metall-effekt-gold-1-liter/p/3800489",
+  "price": "-",
+  "sizeVariants": [
+    {"size":  1,"price":  5.99},
+    {"size":  2,"price": 10.99},
+    {"size":  5,"price": 20.99},
+    {"size": 10,"price": 25.99},
+    {"size": 15,"price": 30.99},
+    {"size": 20,"price": 40.99}
+  ],
+  "color": [1],
+  "hexColor": "#FFD700",
+  "coverage": 70,
+  "images": ["https://c8.alamy.com/compde/cnngna/textur-von-einer-betonmauer-bedeckt-metallic-lackierung-mit-goldenen-flecken-cnngna.jpg"],
+  "type": "wall paint",
+  "recommended": [60,63,66]
+}
+
+###
+
+PUT http://localhost:8080/api/products/6
+Content-Type: application/json
+
+{
+  "name": "HDs Finest Wall Paint – Absolut Premium Quality",
+  "description": "Die einzige Farbe, die man braucht. Warum etwas geringeres nehmen als den Gold-Standard",
+  "brand": "Alpina",
+  "link": "https://www.obi.de/effektfarben/alpina-farbrezepte-metall-effekt-gold-1-liter/p/3800489",
+  "price": "-",
+  "sizeVariants": [
+    {"size":  1,"price":  5.99},
+    {"size":  2,"price": 10.99},
+    {"size":  5,"price": 20.99},
+    {"size": 10,"price": 25.99},
+    {"size": 15,"price": 30.99},
+    {"size": 20,"price": 40.99}
+  ],
+  "color": [1],
+  "hexColor": "#FFD700",
+  "coverage": 70,
+  "images": ["https://c8.alamy.com/compde/cnngna/textur-von-einer-betonmauer-bedeckt-metallic-lackierung-mit-goldenen-flecken-cnngna.jpg"],
+  "type": "wall paint",
+  "recommended": [60,63,66]
+}
+
+###
+
+DELETE http://localhost:8080/api/products/6

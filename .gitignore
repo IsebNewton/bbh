@@ -1,4 +1,5 @@
 dist/
+sessions/
 
 # IDEs
 .idea/

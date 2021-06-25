@@ -1,0 +1,7 @@
+id,group,label,value
+1,Anstrichart,gleiche Farbe,1
+2,Anstrichart,dunkel auf hell,1
+3,Anstrichart,hell auf dunkel,2
+4,Wandbeschaffenheit,glatt,1
+5,Wandbeschaffenheit,Raufaser,2
+6,Wandbeschaffenheit,Rauputz,2.5
