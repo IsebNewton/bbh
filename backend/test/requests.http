@@ -1,0 +1,27 @@
+### Website
+
+GET http://localhost:8080/
+
+### Not Existing
+
+GET http://localhost:8080/idontexist
+
+### API
+
+GET http://localhost:8080/api
+Content-Type: application/json
+
+### API Colors
+
+GET http://localhost:8080/api/colors
+Content-Type: application/json
+
+### API Parameters
+
+GET http://localhost:8080/api/parameters
+Content-Type: application/json
+
+### API Products
+
+GET http://localhost:8080/api/products
+Content-Type: application/json

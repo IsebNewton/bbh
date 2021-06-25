@@ -1,15 +1,29 @@
 import * as express from "express";
-import * as path from "path";
+import * as os from "os";
+import api from "./api";
+import { Config } from "./config";
+import logger from "./logger";
 
-// -----------------------------------------------------------------------------
+export default async function (config: Config) {
+  try {
+    const app = express();
 
-const frontendDir = path.join(__dirname, "..", "frontend");
+    app.use(logger);
 
-// -----------------------------------------------------------------------------
+    app.use("/api", await api(config));
 
-const app = express();
+    app.get("/", (_, res) => res.sendFile(config.webEntry));
 
-app.get("/", (_, res) => res.sendFile(path.join(frontendDir, "index.html")));
-app.use(express.static(frontendDir, { fallthrough: false }));
+    app.use(express.static(config.webDir));
 
-export default app;
+    app.use((_, res) => res.sendStatus(404));
+
+    app.listen(config.port, () => {
+      const msg = `Server listening on: http://${os.hostname()}:${config.port}`;
+      console.log(msg);
+    });
+  } catch (err) {
+    console.error("Failed to start server!");
+    console.error(err);
+  }
+}
