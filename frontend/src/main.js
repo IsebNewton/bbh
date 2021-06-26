@@ -5,7 +5,7 @@ import { store } from './store';
 import { BootstrapVue, BootstrapVueIcons } from 'bootstrap-vue';
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
-require('./style/style.sass');
+require('./style/style.scss');
 
 Vue.use(BootstrapVue);
 Vue.use(BootstrapVueIcons);
