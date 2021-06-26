@@ -16,14 +16,16 @@
           >
         </div>
       </div>
-      <div class="col-5 offset-2 text-center">
+      <div class="col-5 offset-2 text-center d-flex flex-column">
         <h2>Weiter zum Sortiment</h2>
-        <div class="bg-secondary p-3 d-flex flex-column">
+        <div class="bg-secondary p-3 flex-grow-1 d-flex flex-column">
           <p class="flex-grow-1">
             Stöbern Sie in unserem breitem Farben-Sortiment, es ist Zeit für
             einen neuen Anstrich!
           </p>
-          <b-button variant="primary">Zum Shop</b-button>
+          <div>
+            <b-button variant="primary">Zum Shop</b-button>
+          </div>
         </div>
       </div>
     </div>

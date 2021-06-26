@@ -1,7 +1,26 @@
-html, body, #app {
+// Base Settings ---------------------------------------------------------------
+
+html,
+body {
   height: 100%;
 }
 
-.bg-secondary {
-  background-color: #EDEDED !important;
+// Helper Classes --------------------------------------------------------------
+
+.text-shadow {
+  text-shadow: 0 0 8px #0004;
 }
+
+// Bootstrap Overwrites --------------------------------------------------------
+
+.bg-primary,
+.btn-primary {
+  background-color: #3d48af !important;
+}
+
+.bg-secondary,
+.btn-secondary {
+  background-color: #ededed !important;
+}
+
+// Shame.css -------------------------------------------------------------------

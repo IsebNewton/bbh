@@ -1,8 +1,8 @@
 <template>
 <div class="h-100 w-100 d-flex flex-column">
   <topbar :title="title"></topbar>
-  <div class="flex-grow-1 d-flex justify-content-center align-items-center">
-    <router-view />
+  <div class="flex-fill overflow-auto d-flex">
+    <router-view class="m-auto" />
   </div>
   <footer class="bg-secondary p-3 d-flex justify-content-start">
       <router-link class="me-3 text-body text-decoration-none" to="/">Home</router-link>
