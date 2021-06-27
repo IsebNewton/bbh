@@ -40,7 +40,7 @@
           </div>
 
           <b-form @submit="addRecess">
-            <div class="row align-items-center">
+            <div class="row align-items-center mb-3">
               <div class="col-4">
                 <label class="text-shadow text-bold">
                   Aussparungen (cmxcm):
@@ -76,22 +76,24 @@
 
           <!-- TODO: Hier müssen wir nochmal drüber reden !!! -->
           <div
-            class="formsection"
+            class="row align-items-center mb-3"
             v-for="parameterGroup in getParameterGroup()"
             :key="parameterGroup"
           >
-            <label class="formlabel">
-              {{ parameterGroup }}
-            </label>
-            <select-field
-              class="formfield"
-              inputId="selectPaintType"
-              isRequired
-              :options="getParameterByGroup(parameterGroup)"
-              :value="formdata.parameters[parameterGroup]"
-              :name="parameterGroup"
-              @change="onChangePaintType"
-            ></select-field>
+            <div class="col-4">
+              <label class="text-shadow text-bold">{{ parameterGroup }}</label>
+            </div>
+            <div class="col-4">
+              <select-field
+                class="formfield"
+                inputId="selectPaintType"
+                isRequired
+                :options="getParameterByGroup(parameterGroup)"
+                :value="formdata.parameters[parameterGroup]"
+                :name="parameterGroup"
+                @change="onChangePaintType"
+              ></select-field>
+            </div>
           </div>
           <!-- Ende: Hier müssen wir nochmal drüber reden !!! -->
 
@@ -185,7 +187,6 @@ export default {
       for (var i = 0; i < this.availableParameters.length; i++) {
         if (result.indexOf(this.availableParameters[i].group) === -1) {
           result.push(this.availableParameters[i].group);
-          this.formdata.parameters[this.availableParameters[i].group] = null;
         }
       }
       this.parameternames = result;

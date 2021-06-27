@@ -2,7 +2,7 @@
     <div class="form-group">
         <label v-if="!noLabel && !smallLabel">{{ label }}</label>
         <small v-if="smallLabel" class="help-block form-text">{{ label }}</small>
-        <select class="custom-select" 
+        <select class="formfield" 
             :id="inputId"
             :required="isRequired"
             v-model="innerValue"
@@ -14,7 +14,7 @@
                 v-bind:value="option"
             >{{option[useText]}}</option>
         </select>
-        <select class="custom-select" 
+        <select class="formfield" 
             :id="inputId"
             :required="isRequired"
             v-model="innerValue"

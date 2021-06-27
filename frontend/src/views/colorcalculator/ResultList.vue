@@ -6,19 +6,19 @@
     <h3 class="text-shadow mb-5">
       Sie haben folgende Farbe gewählt: {{(color && color.color) ? color.color : ""}}
     </h3>
-    <div
-        v-for="product in shownProducts"
-        :key="product.id">
-
-
-        {{product.name}}
-    </div>
+    <product
+      v-for="product in shownProducts"
+      :key="product.id"
+      :product="product"
+      :area="area">
+    </product>
   </div>
 </template>
 
 <script>
 import { mapState, mapActions } from "vuex";
 import { mapGetters } from "vuex";
+import Product from "./Product";
 
 export default {
   data() {
@@ -29,6 +29,7 @@ export default {
     };
   },
   components: {
+    "product": Product,
   },
   computed: {
     ...mapState("product", ["availableProducts"]),
