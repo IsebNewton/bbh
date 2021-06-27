@@ -6,6 +6,19 @@
             :id="inputId"
             :required="isRequired"
             v-model="innerValue"
+            v-if="useValue == 'self'"
+        >
+            <option
+                v-for="option in options"
+                :key="option[useKey]"
+                v-bind:value="option"
+            >{{option[useText]}}</option>
+        </select>
+        <select class="custom-select" 
+            :id="inputId"
+            :required="isRequired"
+            v-model="innerValue"
+            v-else
         >
             <option
                 v-for="option in options"
@@ -25,8 +38,9 @@ export default {
       default: "text"
     },
     options: Array,
-    value: Number,
+    value: undefined,
     label: String,
+    name: String,
     smallLabel: Boolean,
     noLabel: Boolean,
     isRequired: Boolean,
@@ -37,7 +51,7 @@ export default {
     },
     useValue: { // the name of the value-attribute which has to be use
       type: String,
-      default: "id"
+      default: "value"
     },
     useText: { // the name of the text-attribute which has to be use
       type: String,
@@ -54,7 +68,7 @@ export default {
       this.innerValue = val;
     },
     innerValue(val) {
-      this.$emit("change", val);
+      this.$emit("change", val, this.name);
     }
   },
   mounted() {;

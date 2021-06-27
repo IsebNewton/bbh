@@ -7,6 +7,7 @@ import Index from "../views/colorcalculator/Index.vue";
 import PaintWall from "../views/colorcalculator/PaintWall.vue";
 import PaintRectRoom from "../views/colorcalculator/PaintRectRoom.vue";
 import PaintNotRectRoom from "../views/colorcalculator/PaintNotRectRoom.vue";
+import ResultList from "../views/colorcalculator/ResultList.vue";
 
 Vue.use(VueRouter);
 
@@ -28,7 +29,7 @@ const routes = [
   },
   {
     path: "/colorcalculator",
-    name: "Datenschutz",
+    name: "Farbrechner",
     component: Index,
   },
   {
@@ -45,6 +46,11 @@ const routes = [
     path: "/paintnotrectroom",
     name: "Nicht rechteckiges Zimmer streichen",
     component: PaintNotRectRoom,
+  },
+  {
+    path: "/resultlist",
+    name: "Resultlist",
+    component: ResultList,
   },
 ];
 

@@ -86,14 +86,34 @@
             <select-field
               class="formfield"
               inputId="selectPaintType"
-              ref="selectPaintType"
               isRequired
               :options="getParameterByGroup(parameterGroup)"
-              :value="formdata.type"
+              :value="formdata.parameters[parameterGroup]"
+              :name="parameterGroup"
+              @change="onChangePaintType"
             ></select-field>
           </div>
           <!-- Ende: Hier müssen wir nochmal drüber reden !!! -->
 
+          <div class="row align-items-center mb-3">
+            <div class="col-4">
+              <label class="text-shadow text-bold">Farbe</label>
+            </div>
+            <div class="col-4">
+              <select-field
+                class="formfield"
+                inputId="selectColor"
+                isRequired
+                :options="availableColors"
+                :value="formdata.color"
+                useText="color"
+                useValue="self"
+                @change="onChangeColor"
+              ></select-field>
+            </div>
+          </div>
+
+          <b-button variant="primary" @click="goBack">Zurück</b-button>
           <b-button type="submit" variant="primary">Weiter</b-button>
         </b-form>
       </div>
@@ -103,24 +123,24 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+import { mapState, mapActions, mapMutations } from "vuex";
 import SelectField from "../components/input/SelectField";
 import RecessList from "../components/RecessList";
 
 export default {
   data() {
     return {
+      parameternames: [],
       formdata: {
         wallLength: null,
         ceilingHeight: null,
-        type: null,
+        color: null,
+        parameters: []
       },
-      parameterDict: {},
-      test: ["a", "b"],
       resess: {
         length: null,
         height: null,
-      },
+      }
     };
   },
   components: {
@@ -128,32 +148,47 @@ export default {
     "recess-list": RecessList,
   },
   computed: {
-    ...mapState("parameter", ["availableParameters"]),
+    ...mapState("color", ["availableColors"]),
+    ...mapState("parameter", ["availableParameters"])
   },
   mounted() {
     this.$parent.title = "Farbbedarfsrechner";
     this.getParameters();
+    this.getColors();
   },
   watch: {},
   methods: {
+    ...mapActions("color", [
+      "getColors"
+    ]),
     ...mapActions("parameter", [
-      "getParameters",
-      "deleteParameter",
-      "searchParameter",
+      "getParameters"
+    ]),
+    ...mapMutations("colorcalculator", [
+      "setArea",
+      "setColor"
     ]),
     onSubmit(event) {
       event.preventDefault();
+      this.calculateArea();
+      this.setColor(this.formdata.color);
+      this.$router.push({ name: 'Resultlist' });
     },
     onReset(event) {
       event.preventDefault();
+    },
+    goBack() {
+      this.$router.push({ name: 'Farbrechner' });
     },
     getParameterGroup() {
       var result = [];
       for (var i = 0; i < this.availableParameters.length; i++) {
         if (result.indexOf(this.availableParameters[i].group) === -1) {
           result.push(this.availableParameters[i].group);
+          this.formdata.parameters[this.availableParameters[i].group] = null;
         }
       }
+      this.parameternames = result;
       return result;
     },
     getParameterByGroup(groupname) {
@@ -172,7 +207,26 @@ export default {
         this.resess.length,
         this.resess.height
       );
+      this.resess.length = null;
+      this.resess.height = null;
     },
+    calculateArea() {
+      var area = this.formdata.wallLength * this.formdata.ceilingHeight;
+      for (var i = 0; i < this.$refs.refRecessList.recesses.length; i++) {
+        area -= this.$refs.refRecessList.recesses[i].length * this.$refs.refRecessList.recesses[i].height;
+      }
+      area /= 10000; // cm² -> m²
+      for (var i = 0; i < this.parameternames.length; i++) {
+        area *= this.formdata.parameters[this.parameternames[i]];
+      }
+      this.setArea(area);
+    },
+    onChangePaintType(value, groupname) {
+      this.formdata.parameters[groupname] = value;
+    },
+    onChangeColor(value) {
+      this.formdata.color = value;
+    }
   },
 };
 </script>

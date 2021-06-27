@@ -4,7 +4,12 @@
       <div
         v-for="recess in recesses"
         :key="recess.name">
-        <small>{{recess.name + ": " + recess.length + "x" + recess.height + " = " + recess.length * recess.height + "m²"}}</small>
+        <label>{{recess.name + ": " + recess.length + "cm x " + recess.height + "cm = " + recess.length * recess.height / 10000 + "m²"}}</label>
+        <b-button
+        variant="danger"
+        @click="deleteRecess(recess.name)">
+        X
+        </b-button>
 
       </div>
     </div>
@@ -14,7 +19,7 @@
 export default {
   data() {
     return {
-        recesses: []
+      recesses: []
     };
   },
   components: {
@@ -53,6 +58,13 @@ export default {
             length: _length,
             height: _height
         });
+    },
+    deleteRecess(recessname) {
+      for(var i = 0; i < this.recesses.length; i++) {
+        if (this.recesses[i].name == recessname) {
+          this.recesses.splice(i, 1);
+        }
+      }
     }
   }
 }
