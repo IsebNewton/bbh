@@ -18,7 +18,7 @@ import Topbar from './views/components/Topbar.vue';
 export default {
   data() {
     return {
-      title: 'Test'
+      title: ''
     };
   },
   components: {
