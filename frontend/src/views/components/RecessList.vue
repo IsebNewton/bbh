@@ -1,6 +1,6 @@
 <template>
     <div class="content">
-      <h3>Aussparungen</h3>
+      <h3>{{title}}</h3>
       <div
         v-for="recess in recesses"
         :key="recess.name">
@@ -17,6 +17,9 @@
 
 <script>
 export default {
+  props: {
+    title: String,
+  },
   data() {
     return {
       recesses: []

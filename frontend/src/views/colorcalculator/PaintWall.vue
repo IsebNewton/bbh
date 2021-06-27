@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <h1 class="text-center text-shadow mb-5">
-      Geben Sie die Daten der Wand ein.
+      Bitte geben Sie die Daten der Wand ein.
     </h1>
 
     <div class="row">
@@ -9,7 +9,7 @@
         <b-form @submit="onSubmit" @reset="onReset">
           <div class="row align-items-center mb-3">
             <div class="col-4">
-              <label class="text-shadow text-bold">Wandläge (cm):</label>
+              <label class="text-shadow text-bold">Wandlänge (cm):</label>
             </div>
             <div class="col-4">
               <b-form-input
