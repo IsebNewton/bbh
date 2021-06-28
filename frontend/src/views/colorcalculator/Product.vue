@@ -1,5 +1,6 @@
 <template>
   <div class="container">
+    <img :src="product.images[0]" alt="...">
     <h2>{{product.name}}</h2>
     <label>benötigt: ~{{Math.round(product.coverage / 1000 * area * 100) / 100}} L</label>
     <div

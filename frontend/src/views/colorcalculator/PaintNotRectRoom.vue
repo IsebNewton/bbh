@@ -36,8 +36,7 @@
                   id="inputWallName"
                   v-model="wall.name"
                   type="text"
-                  placeholder="Wandnamen eingeben"
-                  required
+                  placeholder="z.B. Südwand"
                 ></b-form-input>
               </div>
             </div>

@@ -12,7 +12,7 @@
       outlined
       >
       <template #cell(sizeVariants)="data">
-        <div
+        <div class="text-nowrap"
           v-for="sizeVariant in data.item.sizeVariants"
           :key="sizeVariant.size">
           <label>{{sizeVariant.size}} L</label>
