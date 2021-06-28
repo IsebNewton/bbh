@@ -166,6 +166,7 @@ export default {
   },
   mounted() {
     this.$parent.title = "Farbbedarfsrechner";
+    this.$parent.adminnavigation = false;
     this.getParameters();
     this.getColors();
   },

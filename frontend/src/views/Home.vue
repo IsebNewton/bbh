@@ -41,6 +41,7 @@ export default {
   computed: {},
   mounted() {
     this.$parent.title = "";
+    this.$parent.adminnavigation = false;
   },
   watch: {},
   methods: {},

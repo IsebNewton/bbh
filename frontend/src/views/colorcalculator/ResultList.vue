@@ -36,6 +36,7 @@ export default {
   },
   mounted(){
     this.$parent.title = "Farbbedarfsrechner";
+    this.$parent.adminnavigation = false;
     this.area = this.getArea();
     this.color = this.getColor();
     this.getProducts().then(

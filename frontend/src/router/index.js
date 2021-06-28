@@ -17,6 +17,11 @@ Vue.use(VueRouter);
 
 const routes = [
   {
+    path: "/",
+    name: "Home",
+    component: Home,
+  },
+  {
     path: "/calculationfactors",
     name: "Berechnungsfaktoren",
     component: CalculationFactors,
@@ -25,11 +30,6 @@ const routes = [
     path: "/colorcalculator",
     name: "Farbrechner",
     component: Colorcalculator,
-  },
-  {
-    path: "/",
-    name: "Home",
-    component: Home,
   },
   {
     path: "/impress",
