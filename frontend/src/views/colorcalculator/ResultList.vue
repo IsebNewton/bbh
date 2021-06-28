@@ -40,18 +40,18 @@ export default {
     this.area = this.getArea();
     this.color = this.getColor();
     this.getProducts().then(
-        function() {
-            if (this.color) {
-                for (var i = 0; i < this.availableProducts.length; i++) {
-                    if (this.availableProducts[i].color == this.color.id) {
-                        this.shownProducts.push(this.availableProducts[i]);
-                    }
-                }
-            }
-            else {
-                this.shownProducts = this.availableProducts;
-            }
-        }.bind(this)
+      function() {
+        if (this.color) {
+          for (var i = 0; i < this.availableProducts.length; i++) {
+              if (this.availableProducts[i].color == this.color.id) {
+                  this.shownProducts.push(this.availableProducts[i]);
+              }
+          }
+        }
+        else {
+          this.shownProducts = this.availableProducts;
+        }
+      }.bind(this)
     );
   },
   watch: {
