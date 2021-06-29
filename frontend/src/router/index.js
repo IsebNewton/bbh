@@ -9,6 +9,7 @@ import Login from "../views/manage/Login.vue";
 import PaintWall from "../views/colorcalculator/PaintWall.vue";
 import PaintNotRectRoom from "../views/colorcalculator/PaintNotRectRoom.vue";
 import PaintRectRoom from "../views/colorcalculator/PaintRectRoom.vue";
+import ParameterSelection from "../views/colorcalculator/ParameterSelection.vue";
 import Privacy from "../views/Privacy.vue";
 import Products from "../views/manage/Products.vue";
 import ResultList from "../views/colorcalculator/ResultList.vue";
@@ -43,23 +44,28 @@ const routes = [
   },
   {
     path: "/paintwall",
-    name: "Wand streichen",
+    name: "WandStreichen",
     component: PaintWall,
   },
   {
     path: "/paintnotrectroom",
-    name: "Nicht rechteckiges Zimmer streichen",
+    name: "NichtRechteckigesZimmerStreichen",
     component: PaintNotRectRoom,
   },
   {
     path: "/paintrectroom",
-    name: "Rechteckiges Zimmer streichen",
+    name: "RechteckigesZimmerStreichen",
     component: PaintRectRoom,
   },
   {
     path: "/privacy",
     name: "Datenschutz",
     component: Privacy,
+  },
+  {
+    path: "/parameterselection",
+    name: "Parameterauswahl",
+    component: ParameterSelection,
   },
   {
     path: "/products",

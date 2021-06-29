@@ -8,11 +8,11 @@
             v-model="innerValue"
             v-if="useValue == 'self'"
         >
-            <option
-                v-for="option in options"
-                :key="option[useKey]"
-                v-bind:value="option"
-            >{{option[useText]}}</option>
+          <option
+              v-for="option in options"
+              :key="option[useKey]"
+              v-bind:value="option"
+          >{{option[useText]}}</option>
         </select>
         <select class="formfield" 
             :id="inputId"
@@ -20,11 +20,11 @@
             v-model="innerValue"
             v-else
         >
-            <option
-                v-for="option in options"
-                :key="option[useKey]"
-                v-bind:value="option[useValue]"
-            >{{option[useText]}}</option>
+          <option
+              v-for="option in options"
+              :key="option[useKey]"
+              v-bind:value="option[useValue]"
+          >{{option[useText]}}</option>
         </select>
     </div>
 </template>

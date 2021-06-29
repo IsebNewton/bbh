@@ -2,7 +2,8 @@ import service from '../services/service'
 import { getError } from './utils'
 
 const state = {
-    availableParameters: []
+    availableParameters: [],
+	parameterDict: {}
 }
 
 const actions = {
@@ -43,8 +44,20 @@ const actions = {
 
 const mutations = {
     setAvailableParameters(state, availableParameters) {
-		if (availableParameters != undefined)
-        	state.availableParameters = availableParameters.entities;
+		if (availableParameters != undefined) {
+			state.availableParameters = availableParameters.entities;
+			var dict = {};
+			for (var i  = 0; i < availableParameters.entities.length; i++) {
+				if (dict[availableParameters.entities[i].group] == null) {
+					dict[availableParameters.entities[i].group] = [availableParameters.entities[i]];
+				}
+				else {
+					dict[availableParameters.entities[i].group].push(availableParameters.entities[i]);
+				}
+			}
+			state.parameterDict = dict;
+		}
+        	
 	},
 	setCurrentEntity(entity, val) {
 		console.log("current entity: ", entity, val)

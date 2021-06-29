@@ -19,10 +19,11 @@
 export default {
   props: {
     title: String,
+    recesses: Array,
+    arrayname: String
   },
   data() {
     return {
-      recesses: []
     };
   },
   components: {
@@ -56,7 +57,8 @@ export default {
                 }
             }
         }
-        this.recesses.push({
+        console.log(this.$parent)
+        this.$parent._data[this.arrayname].push({
             name: _name + suffix,
             length: _length,
             height: _height
@@ -65,7 +67,7 @@ export default {
     deleteRecess(recessname) {
       for(var i = 0; i < this.recesses.length; i++) {
         if (this.recesses[i].name == recessname) {
-          this.recesses.splice(i, 1);
+          this.$parent._data[this.arrayname].splice(i, 1);
         }
       }
     }
