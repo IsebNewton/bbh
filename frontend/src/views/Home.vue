@@ -24,7 +24,12 @@
             einen neuen Anstrich!
           </p>
           <div>
-            <b-button variant="primary">Zum Shop</b-button>
+            <b-button
+              variant="primary"
+              href="https://www.obi.de/magazin"
+              target="_blank"
+              >Zum Shop</b-button
+            >
           </div>
         </div>
       </div>
