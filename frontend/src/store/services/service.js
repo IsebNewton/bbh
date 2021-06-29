@@ -1,4 +1,4 @@
-
+// TODO: make dynamic, so that it works in local dev mode and in deployment
 var apiUrl = 'http://localhost:8080/api';
 
 import axios from 'axios';

@@ -1,17 +1,34 @@
 <template>
-  <div class="container">
-    <img :src="product.images[0]" alt="...">
-    <h2>{{product.name}}</h2>
-    <label>benötigt: ~{{Math.round(product.coverage / 1000 * area * 100) / 100}} L</label>
-    <div
-      v-for="sizeVariant in product.sizeVariants"
-      :key="sizeVariant.size">
-      <p>{{sizeVariant.size}} L</p>
-      <p>{{sizeVariant.price}} €</p>
+  <div class="d-flex align-items-center shadow mt-4">
+    <div class="col-2">
+      <div class="ratio ratio-1x1">
+        <img
+          class="img-contain"
+          :src="product.images[0]"
+          :alt="'Bild von ' + product.name"
+        />
+      </div>
     </div>
-    <a class="btn btn-primary btn-lg active" :href="product.link">
-        zum Shop
-    </a>
+    <h2 class="col-3 mx-3">{{ product.name }}</h2>
+    <div class="col-2 text-center">
+      benötigt:<br />
+      <!-- TODO: Der Bedarf muss noch richtig berechnet werden! -->
+      ~{{ Math.round((product.coverage / 1000) * area * 100) / 100 }} L
+    </div>
+    <table class="col-1 offset-1 text-end">
+      <tr v-for="sizeVariant in product.sizeVariants" :key="sizeVariant.size">
+        <td>{{ sizeVariant.size }} L</td>
+        <td>{{ sizeVariant.price }} €</td>
+      </tr>
+    </table>
+    <div class="col-2 offset-1">
+      <a
+        class="btn btn-primary btn-lg active"
+        :href="product.link"
+        target="_blank"
+        >zum Shop</a
+      >
+    </div>
   </div>
 </template>        
 
@@ -19,23 +36,18 @@
 export default {
   props: {
     product: Object,
-    area: Number
+    area: Number,
   },
   data() {
-    return {
-    };
+    return {};
   },
-  components: {
-  },
-  computed: {
-  },
-  mounted(){
+  components: {},
+  computed: {},
+  mounted() {
     this.$parent.title = "Farbbedarfsrechner";
     this.$parent.adminnavigation = false;
   },
-  watch: {
-  },
-  methods: {
-  }
-}
+  watch: {},
+  methods: {},
+};
 </script>

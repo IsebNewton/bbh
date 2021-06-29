@@ -5,7 +5,16 @@ body {
   height: 100%;
 }
 
+img {
+  height: auto;
+  max-width: 100%;
+}
+
 // Helper Classes --------------------------------------------------------------
+
+.img-contain {
+  object-fit: contain;
+}
 
 .text-shadow {
   text-shadow: 0 0 8px #0004;
