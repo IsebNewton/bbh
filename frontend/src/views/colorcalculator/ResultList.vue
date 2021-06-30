@@ -29,7 +29,7 @@
       v-for="product in shownProducts"
       :key="product.id"
       :product="product"
-      :area="factoredArea">
+      :factorizedPaintArea="factorizedPaintArea">
     </product>
   </div>
 </template>
@@ -42,7 +42,7 @@ export default {
   data() {
     return {
         area: null,
-        factoredArea: null,
+        factorizedPaintArea: null,
         shownProducts: [],
         selectedParams: {
           wallTexture: null,
@@ -111,17 +111,17 @@ export default {
       localStorage.setItem("selectedParams", JSON.stringify(data));
     },
     calculateArea() {
-      var factoredArea = this.area * this.selectedParams.wallTexture.value;
+      var factorizedPaintArea = this.area * this.selectedParams.wallTexture.value;
       if (this.selectedParams.prevcolor.brightness == this.selectedParams.color.brightness) {
-        factoredArea *= this.getPaintingTypeValue('gleiche Farbe');
+        factorizedPaintArea *= this.getPaintingTypeValue('gleiche Farbe');
       }
       else if (this.selectedParams.prevcolor.brightness < this.selectedParams.color.brightness) {
-        factoredArea *= this.getPaintingTypeValue('dunkel auf hell');
+        factorizedPaintArea *= this.getPaintingTypeValue('dunkel auf hell');
       }
       else {
-        factoredArea *= this.getPaintingTypeValue('hell auf dunkel');
+        factorizedPaintArea *= this.getPaintingTypeValue('hell auf dunkel');
       }
-      this.factoredArea = factoredArea;
+      this.factorizedPaintArea = factorizedPaintArea;
     },
     getPaintingTypeValue(label) {
       for (var i = 0; i < this.parameterDict['Anstrichart'].length; i++) {

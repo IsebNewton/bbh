@@ -142,15 +142,15 @@ export default {
       }
     },
     calculateArea() {
-      var factoredArea = this.getArea * this.formdata.wallTexture.value;
+      var factorizedPaintArea = this.getArea * this.formdata.wallTexture.value;
       if (this.formdata.prevcolor.brightness == this.formdata.color.brightness) {
-        factoredArea *= this.getPaintingTypeValue('gleiche Farbe');
+        factorizedPaintArea *= this.getPaintingTypeValue('gleiche Farbe');
       }
       else if (this.formdata.prevcolor.brightness < this.formdata.color.brightness) {
-        factoredArea *= this.getPaintingTypeValue('dunkel auf hell');
+        factorizedPaintArea *= this.getPaintingTypeValue('dunkel auf hell');
       }
       else {
-        factoredArea *= this.getPaintingTypeValue('hell auf dunkel');
+        factorizedPaintArea *= this.getPaintingTypeValue('hell auf dunkel');
       }
     },
     getPaintingTypeValue(label) {
