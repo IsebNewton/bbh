@@ -104,28 +104,24 @@ export default {
     "product-modal": ProductModal
   },
   computed: {
+    ...mapState("auth", ["isAuthorized"]),
     ...mapState("product", ["availableProducts"]),
   },
   mounted(){
     this.$parent.title = "";
     this.$parent.adminnavigation = true;
-    this.getProducts().then(
-      function() {
-        var _productTypes = [];
-        for (var i = 0; i < this.availableProducts.length; i++) {
-          if (_productTypes.indexOf(this.availableProducts[i].type) === -1) {
-            _productTypes.push(this.availableProducts[i].type);
-          }
-        }
-        this.productTypes = _productTypes;
-      }.bind(this)
-    );
+    this.$parent.checkLoggedIn();
+    this.fetchProducts();
   },
   watch: {
   },
   methods: {
+    ...mapActions("auth", [
+      "getAuth"
+    ]),
     ...mapActions("product", [
-      "getProducts"
+      "getProducts",
+      "deleteProduct"
     ]),
     confirmRemoveProduct(data) {
       this.selectedProduct = data;
@@ -134,11 +130,39 @@ export default {
     showEditTaskModal(data) {
       this.$refs.productModal.showEditProductModal(data);
     },
+    fetchProducts() {
+      this.getProducts().then(
+        function() {
+          var _productTypes = [];
+          for (var i = 0; i < this.availableProducts.length; i++) {
+            if (_productTypes.indexOf(this.availableProducts[i].type) === -1) {
+              _productTypes.push(this.availableProducts[i].type);
+            }
+          }
+          this.productTypes = _productTypes;
+        }.bind(this)
+      );
+    },
     removeProduct(data) {
       if (data.item)
       {
+        console.log(data);
+        this.deleteProduct(data.item.id).then(
+          function() {
+            this.fetchProducts();
+          }.bind(this)
+        );
       }
     },
+    checkLoggedIn() {
+      this.getAuth().then(
+        function() {
+          if (this.isAuthorized) {
+            this.$router.push({ name: 'Produkte' });
+          }
+        }.bind(this)
+      );
+    }
   }
 }
 </script>

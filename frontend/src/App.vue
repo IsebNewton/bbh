@@ -1,6 +1,6 @@
 <template>
 <div class="h-100 w-100 d-flex flex-column">
-  <topbar :title="title"></topbar>
+  <topbar :title="title" :loggedIn="loggedIn"></topbar>
   <div class="flex-fill overflow-auto d-flex">
     <sidebar-menu v-if="adminnavigation" :menu="menu" relative width="250px"></sidebar-menu>
     <router-view class="m-auto" />
@@ -15,6 +15,7 @@
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
 import { SidebarMenu } from 'vue-sidebar-menu'
 import Topbar from './views/components/Topbar.vue';
 
@@ -39,7 +40,8 @@ export default {
           icon: 'fa fa-user'
         },
       ],
-      adminnavigation: false
+      adminnavigation: false,
+      loggedIn: false
     };
   },
   components: {
@@ -47,12 +49,23 @@ export default {
     "topbar": Topbar
   },
   computed: {
+    ...mapState("auth", ["isAuthorized"]),
   },
   mounted(){
   },
   watch: {
   },
   methods: {
+    ...mapActions("auth", [
+      "getAuth"
+    ]),
+    checkLoggedIn() {
+      this.getAuth().then(
+        function() {
+          this.loggedIn = true;//this.isAuthorized; //TODO: Anpassen, wenn Authentifizierung funktioniert
+        }.bind(this)
+      );
+    }
   }
 }
 </script>

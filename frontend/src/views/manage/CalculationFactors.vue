@@ -19,6 +19,7 @@ export default {
   mounted(){
     this.$parent.title = "";
     this.$parent.adminnavigation = true;
+    this.$parent.checkLoggedIn();
   },
   watch: {
   },

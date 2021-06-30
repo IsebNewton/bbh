@@ -100,6 +100,9 @@ export default {
           if (this.isAuthorized) {
             this.$router.push({ name: 'Produkte' });
           }
+          else {
+            this.$parent.loggedIn = false;
+          }
         }.bind(this)
       );
     }
