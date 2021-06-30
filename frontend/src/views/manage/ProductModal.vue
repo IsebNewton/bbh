@@ -107,7 +107,6 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
-import SelectField from "../components/input/SelectField";
 
 export default {
   props: {
@@ -140,7 +139,6 @@ export default {
     };
   },
   components: {
-    "select-field": SelectField,
   },
   computed: {
     ...mapState("color", ["availableColors"]),

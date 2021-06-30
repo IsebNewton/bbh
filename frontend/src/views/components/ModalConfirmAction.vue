@@ -3,12 +3,12 @@
       <b-modal
         v-model="showConfirmationModal"
         :title="title"
-        :header-bg-variant="headerBgVariant"
-        :header-text-variant="headerTextVariant"
-        :body-bg-variant="bodyBgVariant"
-        :body-text-variant="bodyTextVariant"
-        :footer-bg-variant="footerBgVariant"
-        :footer-text-variant="footerTextVariant"
+        header-bg-variant="dark"
+        header-text-variant="light"
+        body-bg-variant="light"
+        body-text-variant="dark"
+        footer-bg-variant="light"
+        footer-text-variant="dark"
         :hide-footer="true"
       >
         <b-form @submit="onSubmit" @reset="onCancel">
@@ -30,20 +30,10 @@ export default {
   },
   data() {
     return {
-        showConfirmationModal: false,
-        wrongConfirmationWord: false,
-        headerBgVariant: 'dark',
-        headerTextVariant: 'light',
-        bodyBgVariant: 'light',
-        bodyTextVariant: 'dark',
-        footerBgVariant: 'light',
-        footerTextVariant: 'dark'
+      showConfirmationModal: false,
     };
   },
   watch: {
-    input(val) {
-      this.wrongConfirmationWord = false;
-    }
   },
   created() {
   },

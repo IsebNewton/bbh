@@ -39,6 +39,13 @@ class service {
         return axios(`${apiUrl}/${endpointName}/${id}`, requestOptions).then(service.handleResponse);
     }
 
+    static delete(endpointName) {
+        const requestOptions = {
+            method: 'DELETE',
+        };
+        return axios(`${apiUrl}/${endpointName}`, requestOptions).then(service.handleResponse);
+    }
+
     static deleteOne(endpointName, id, body) {
         const requestOptions = {
             method: 'DELETE',

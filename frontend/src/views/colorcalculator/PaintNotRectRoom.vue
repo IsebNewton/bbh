@@ -102,139 +102,94 @@
 
           </b-form>
 
-          <!-- TODO: Hier müssen wir nochmal drüber reden !!! -->
-          <div
-            class="row align-items-center mb-3"
-            v-for="parameterGroup in getParameterGroup()"
-            :key="parameterGroup"
-          >
-            <div class="col-4">
-              <label class="text-shadow text-bold">{{ parameterGroup }}</label>
-            </div>
-            <div class="col-4">
-              <select-field
-                class="formfield"
-                inputId="selectPaintType"
-                isRequired
-                :options="getParameterByGroup(parameterGroup)"
-                :value="formdata.parameters[parameterGroup]"
-                :name="parameterGroup"
-                @change="onChangePaintType"
-              ></select-field>
-            </div>
-          </div>
-          <!-- Ende: Hier müssen wir nochmal drüber reden !!! -->
-
-          <div class="row align-items-center mb-3">
-            <div class="col-4">
-              <label class="text-shadow text-bold">Farbe</label>
-            </div>
-            <div class="col-4">
-              <select-field
-                class="formfield"
-                inputId="selectColor"
-                isRequired
-                :options="availableColors"
-                :value="formdata.color"
-                useText="color"
-                useValue="self"
-                @change="onChangeColor"
-              ></select-field>
-            </div>
-          </div>
-
           <b-button variant="primary" @click="goBack">Zurück</b-button>
           <b-button type="submit" variant="primary">Weiter</b-button>
         </b-form>
       </div>
       <div class="col-4">
-        <recess-list title="Hinzugefügte Wände" ref="refWallList" class="mb-4"></recess-list>
-        <recess-list title="Hinzugefügte Aussparungen" ref="refRecessList" class="mb-4"></recess-list>
+        <recess-list 
+          title="Hinzugefügte Wände"
+          ref="refWallList"
+          :recesses="walls"
+          arrayname="walls"
+          class="mb-4">
+        </recess-list>
+        <recess-list
+          title="Hinzugefügte Aussparungen"
+          ref="refRecessList"
+          :recesses="recesses"
+          arrayname="recesses"
+          class="mb-4">
+        </recess-list>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import { mapState, mapActions, mapMutations } from "vuex";
-import SelectField from "../components/input/SelectField";
 import RecessList from "../components/RecessList";
 
 export default {
   data() {
     return {
-      parameternames: [],
       formdata: {
-        ceilingHeight: null,
-        color: null,
-        parameters: []
+        wallLength: null,
+        ceilingHeight: null
+      },
+      resess: {
+        length: null,
+        height: null,
       },
       wall: {
         name: null,
         length: null
       },
-      resess: {
-        length: null,
-        height: null,
-      }
+      recesses: [],
+      walls: []
     };
   },
   components: {
-    "select-field": SelectField,
     "recess-list": RecessList,
   },
   computed: {
-    ...mapState("color", ["availableColors"]),
-    ...mapState("parameter", ["availableParameters"])
   },
   mounted() {
     this.$parent.title = "Farbbedarfsrechner";
     this.$parent.adminnavigation = false;
-    this.getParameters();
-    this.getColors();
+    this.loadData();
   },
-  watch: {},
+  watch: {
+    formdata: {
+      handler: function (newVal, oldVal) {
+        this.saveData("paintNotRectRoomData", newVal);
+      },
+      deep: true
+    },
+    recesses: {
+      handler: function (newVal, oldVal) {
+        this.saveData("paintNotRectRoomRecesses", newVal);
+      },
+      deep: true
+    },
+    walls: {
+      handler: function (newVal, oldVal) {
+        this.saveData("paintNotRectRoomWalls", newVal);
+      },
+      deep: true
+    }
+  },
   methods: {
-    ...mapActions("color", [
-      "getColors"
-    ]),
-    ...mapActions("parameter", [
-      "getParameters"
-    ]),
-    ...mapMutations("colorcalculator", [
-      "setArea",
-      "setColor"
-    ]),
     onSubmit(event) {
       event.preventDefault();
       this.calculateArea();
-      this.setColor(this.formdata.color);
-      this.$router.push({ name: 'Resultlist' });
+      localStorage.setItem("lastView", "NichtRechteckigesZimmerStreichen");
+      this.$router.push({ name: 'Parameterauswahl' });
     },
     onReset(event) {
       event.preventDefault();
     },
     goBack() {
       this.$router.push({ name: 'Farbrechner' });
-    },
-    getParameterGroup() {
-      var result = [];
-      for (var i = 0; i < this.availableParameters.length; i++) {
-        if (result.indexOf(this.availableParameters[i].group) === -1) {
-          result.push(this.availableParameters[i].group);
-        }
-      }
-      this.parameternames = result;
-      return result;
-    },
-    getParameterByGroup(groupname) {
-      var result = [];
-      for (var i = 0; i < this.availableParameters.length; i++) {
-        if (this.availableParameters[i].group == groupname) {
-          result.push(this.availableParameters[i]);
-        }
-      }
-      return result;
     },
     addRecess(event) {
       event.preventDefault();
@@ -258,24 +213,32 @@ export default {
     },
     calculateArea() {
       var area = 0;
-      for (var i = 0; i < this.$refs.refWallList.recesses.length; i++) {
-        area += this.$refs.refWallList.recesses[i].length * this.formdata.ceilingHeight;
+      for (var i = 0; i < this.walls.length; i++) {
+        area += this.walls[i].length * this.formdata.ceilingHeight;
       }
-      for (var i = 0; i < this.$refs.refRecessList.recesses.length; i++) {
-        area -= this.$refs.refRecessList.recesses[i].length * this.$refs.refRecessList.recesses[i].height;
+      for (var i = 0; i < this.recesses.length; i++) {
+        area -= this.recesses[i].length * this.recesses[i].height;
       }
       area /= 10000; // cm² -> m²
-      for (var i = 0; i < this.parameternames.length; i++) {
-        area *= this.formdata.parameters[this.parameternames[i]];
+      localStorage.setItem("area", area);
+    },
+    loadData() {
+      var formdata = localStorage.getItem("paintNotRectRoomData");
+      if (formdata) {
+        this.formdata = JSON.parse(formdata);
       }
-      this.setArea(area);
+      var recesses = localStorage.getItem("paintNotRectRoomRecesses");
+      if (recesses) {
+        this.recesses = JSON.parse(recesses);
+      }
+      var walls = localStorage.getItem("paintNotRectRoomWalls");
+      if (walls) {
+        this.walls = JSON.parse(walls);
+      }
     },
-    onChangePaintType(value, groupname) {
-      this.formdata.parameters[groupname] = value;
+    saveData(name, data) {
+      localStorage.setItem(name, JSON.stringify(data));
     },
-    onChangeColor(value) {
-      this.formdata.color = value;
-    }
   },
 };
 </script>

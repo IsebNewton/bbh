@@ -12,8 +12,7 @@
     <h2 class="col-3 mx-3">{{ product.name }}</h2>
     <div class="col-2 text-center">
       benötigt:<br />
-      <!-- TODO: Der Bedarf muss noch richtig berechnet werden! -->
-      ~{{ Math.round((product.coverage / 1000) * area * 100) / 100 }} L
+      ~{{ Math.round((product.coverage / 1000) * factorizedPaintArea * 100) / 100 }} L
     </div>
     <table class="col-1 offset-1 text-end">
       <tr v-for="sizeVariant in product.sizeVariants" :key="sizeVariant.size">
@@ -36,7 +35,7 @@
 export default {
   props: {
     product: Object,
-    area: Number,
+    factorizedPaintArea: Number, // zu streichene Fläche mit Berücksichtigung der Faktoren (bereits berechnet)
   },
   data() {
     return {};
