@@ -38,6 +38,17 @@ const actions = {
             }
 		);
 		return currPromise;
+	},
+	deleteProduct({ commit, dispatch }, productId) {
+		var currPromise = service.deleteOne('products', productId).then(
+            states => {
+                commit('removeProduct', states);
+            },
+            error => {
+                dispatch('alert/error', getError(error), { root: true });
+            }
+		);
+		return currPromise;
 	}
 };
 
@@ -48,7 +59,16 @@ const mutations = {
 	},
 	setCurrentEntity(entity, val) {
 		console.log("current entity: ", entity, val)
-	}
+	},
+    removeProduct(state, product) {
+		if (product != undefined) {
+			for (var i = 0; i < state.availableProducts.length; i++) {
+				if (state.availableProducts[i].id == product.id) {
+					state.availableProducts.splice(i, 1);
+				}
+			}
+		}
+	},
 };
 
 export const product = {

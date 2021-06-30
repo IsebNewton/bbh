@@ -6,7 +6,7 @@
     <h2 class="mb-0 flex-grow-1 text-center text-white text-shadow">
       {{ title }}
     </h2>
-    <b-button @click="logout">Abmelden</b-button>
+    <b-button v-if="loggedIn" @click="logout">Abmelden</b-button>
   </header>
 </template>
 
@@ -18,10 +18,11 @@ export default {
   name: "Topbar",
   props: {
     title: String,
+    loggedIn: Boolean
   },
   data() {
     return {
-      links: this.$router.options.routes,
+      links: this.$router.options.routes
     };
   },
   components: {
@@ -35,12 +36,12 @@ export default {
   },
   methods: {
     ...mapActions("auth", [
+      "getAuth",
       "deleteAuth"
     ]),
     logout() {
       this.deleteAuth().then(
         function() {
-          console.log(this.isAuthorized)
           this.$router.push({ name: 'Login' });
         }.bind(this)
       );
