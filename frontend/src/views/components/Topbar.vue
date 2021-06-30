@@ -6,10 +6,12 @@
     <h2 class="mb-0 flex-grow-1 text-center text-white text-shadow">
       {{ title }}
     </h2>
+    <b-button @click="logout">Abmelden</b-button>
   </header>
 </template>
 
 <script>
+import { mapState, mapActions } from "vuex";
 require("./../../../public/assets/logo.jpg");
 
 export default {
@@ -22,5 +24,27 @@ export default {
       links: this.$router.options.routes,
     };
   },
+  components: {
+  },
+  computed: {
+    ...mapState("auth", ["isAuthorized"]),
+  },
+  mounted(){
+  },
+  watch: {
+  },
+  methods: {
+    ...mapActions("auth", [
+      "deleteAuth"
+    ]),
+    logout() {
+      this.deleteAuth().then(
+        function() {
+          console.log(this.isAuthorized)
+          this.$router.push({ name: 'Login' });
+        }.bind(this)
+      );
+    }
+  }
 };
 </script>

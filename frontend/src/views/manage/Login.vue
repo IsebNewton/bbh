@@ -7,15 +7,15 @@
         <b-form @submit="onSubmit">
           <div class="row align-items-center mb-3">
             <div class="col-4">
-              <label class="text-shadow text-bold">E-Mail:</label>
+              <label class="text-shadow text-bold">Benutzername:</label>
             </div>
             <div class="col-4">
               <b-form-input
                 class="formfield"
-                id="inputEmail"
-                v-model="formdata.email"
-                type="email"
-                placeholder="E-Mail eingeben"
+                id="inputName"
+                v-model="formdata.name"
+                type="text"
+                placeholder="Benutzernamen eingeben"
                 required
               ></b-form-input>
             </div>
@@ -37,6 +37,8 @@
             </div>
           </div>
 
+          <small v-if="wrong">Falschen Benutzername und / oder falsches Passwort eingeben!</small>
+
           <b-button type="submit" variant="primary">Login</b-button>
         </b-form>
       </div>
@@ -45,32 +47,62 @@
 </template>        
 
 <script>
+import { mapState, mapActions } from "vuex";
+
 export default {
   props: {
   },
   data() {
     return {
       formdata: {
-        email: null,
+        name: null,
         password: null
       },
+      wrong: false
     };
   },
   components: {
   },
   computed: {
+    ...mapState("auth", ["isAuthorized"]),
   },
   mounted(){
     this.$parent.title = "";
     this.$parent.adminnavigation = false;
+    this.checkLoggedIn();
   },
   watch: {
   },
   methods: {
+    ...mapActions("auth", [
+      "getAuth",
+      "postAuth"
+    ]),
     onSubmit(event) {
       event.preventDefault();
-      this.$router.push({ name: 'Produkte' });
+      this.checkAuth();
     },
+    checkAuth() {
+      this.postAuth(this.formdata).then(
+        function() {
+          if (this.isAuthorized) {
+            this.$router.push({ name: 'Produkte' });
+          }
+          else {
+            this.wrong = true;
+          }
+        }.bind(this)
+      );
+    },
+    checkLoggedIn() {
+      this.getAuth().then(
+        function() {
+          if (this.isAuthorized) {
+            this.$router.push({ name: 'Produkte' });
+          }
+        }.bind(this)
+      );
+    }
   }
 }
 </script>
