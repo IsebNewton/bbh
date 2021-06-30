@@ -1,11 +1,30 @@
 <template>
   <div class="container">
     <h1 class="text-center text-shadow">
-      Sie haben folgende Fläche zu streichen: {{area}} m²
+      Auf Grundlage Ihrer Angaben empfehlen wir Ihnen die folgenden Produkte:
     </h1>
     <h3 class="text-shadow mb-5">
-      Sie haben folgende Farbe gewählt: {{(selectedParams && selectedParams.color && selectedParams.color.color) ? selectedParams.color.color : ""}}
+      Sie haben folgende Fläche zu streichen: {{area}} m²
     </h3>
+
+    <div class="row align-items-center mb-3">
+      <div class="col-4">
+        <label class="text-shadow text-bold">Sie haben folgende Farbe gewählt: </label>
+      </div>
+      <div class="col-4">
+        <select
+          class="formfield"
+          id="inputColor"
+          v-model="selectedParams.color">
+          <option
+              v-for="option in availableColors"
+              :key="option.id"
+              v-bind:value="option"
+          >{{option.color}}</option>
+        </select>
+      </div>
+    </div>
+    <b-button variant="primary" @click="goBack">Zurück</b-button>
     <product
       v-for="product in shownProducts"
       :key="product.id"
@@ -25,13 +44,18 @@ export default {
         area: null,
         factoredArea: null,
         shownProducts: [],
-        selectedParams: null
+        selectedParams: {
+          wallTexture: null,
+          prevcolor: null,
+          color: null
+      },
     };
   },
   components: {
     "product": Product,
   },
   computed: {
+    ...mapState("color", ["availableColors"]),
     ...mapState("product", ["availableProducts"]),
     ...mapState("parameter", ["availableParameters", "parameterDict"])
   },
@@ -39,6 +63,7 @@ export default {
     this.$parent.title = "Farbbedarfsrechner";
     this.$parent.adminnavigation = false;
     this.loadData();
+    this.getColors();
     this.getParameters().then(
       function() {
         this.calculateArea();
@@ -46,28 +71,32 @@ export default {
     );
     this.getProducts().then(
       function() {
-        if (this.selectedParams.color) {
-          for (var i = 0; i < this.availableProducts.length; i++) {
-              if (this.availableProducts[i].color == this.selectedParams.color.id) {
-                  this.shownProducts.push(this.availableProducts[i]);
-              }
-          }
-        }
-        else {
-          this.shownProducts = this.availableProducts;
-        }
+        this.filterProducts();
       }.bind(this)
     );
   },
   watch: {
+    selectedParams: {
+      handler: function (newVal, oldVal) {
+        this.saveData(newVal);
+        this.filterProducts();
+      },
+      deep: true
+    },
   },
   methods: {
+    ...mapActions("color", [
+      "getColors"
+    ]),
     ...mapActions("product", [
       "getProducts"
     ]),
     ...mapActions("parameter", [
       "getParameters"
     ]),
+    goBack() {
+      this.$router.push({ name: 'Parameterauswahl' });
+    },
     loadData() {
       var selectedParams = localStorage.getItem("selectedParams");
       if (selectedParams) {
@@ -77,6 +106,9 @@ export default {
       if (area) {
         this.area = JSON.parse(area);
       }
+    },
+    saveData(data) {
+      localStorage.setItem("selectedParams", JSON.stringify(data));
     },
     calculateArea() {
       var factoredArea = this.area * this.selectedParams.wallTexture.value;
@@ -98,6 +130,19 @@ export default {
         }
       }
     },
+    filterProducts() {
+      this.shownProducts = [];
+      if (this.selectedParams.color) {
+        for (var i = 0; i < this.availableProducts.length; i++) {
+            if (this.availableProducts[i].color == this.selectedParams.color.id) {
+                this.shownProducts.push(this.availableProducts[i]);
+            }
+        }
+      }
+      else {
+        this.shownProducts = this.availableProducts;
+      }
+    }
   }
 }
 </script>
