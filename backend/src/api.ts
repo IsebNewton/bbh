@@ -135,7 +135,7 @@ const authKey = "loggedIn";
 function auth(config: Config): express.Handler {
   return (req, res, next) => {
     const authTime = req.session[authKey];
-    if (!authTime && unixtime() - authTime > config.sessionTimeout) {
+    if (!authTime || unixtime() - authTime > config.sessionTimeout) {
       res.sendStatus(401);
       return;
     }
