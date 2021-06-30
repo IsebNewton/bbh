@@ -107,15 +107,26 @@
         </b-form>
       </div>
       <div class="col-4">
-        <recess-list title="Hinzugefügte Wände" ref="refWallList" :recesses="walls" arrayname="walls" class="mb-4"></recess-list>
-        <recess-list title="Hinzugefügte Aussparungen" ref="refRecessList" :recesses="recesses" arrayname="recesses" class="mb-4"></recess-list>
+        <recess-list 
+          title="Hinzugefügte Wände"
+          ref="refWallList"
+          :recesses="walls"
+          arrayname="walls"
+          class="mb-4">
+        </recess-list>
+        <recess-list
+          title="Hinzugefügte Aussparungen"
+          ref="refRecessList"
+          :recesses="recesses"
+          arrayname="recesses"
+          class="mb-4">
+        </recess-list>
       </div>
     </div>
   </div>
 </template>
 
 <script>
-import SelectField from "../components/input/SelectField";
 import RecessList from "../components/RecessList";
 
 export default {
@@ -138,7 +149,6 @@ export default {
     };
   },
   components: {
-    "select-field": SelectField,
     "recess-list": RecessList,
   },
   computed: {

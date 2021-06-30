@@ -88,13 +88,17 @@
           <b-button type="submit" variant="primary">Weiter</b-button>
         </b-form>
       </div>
-      <recess-list ref="refRecessList" :recesses="recesses" arrayname="recesses" class="col-4"></recess-list>
+      <recess-list
+        ref="refRecessList"
+        :recesses="recesses"
+        arrayname="recesses"
+        class="col-4">
+      </recess-list>
     </div>
   </div>
 </template>
 
 <script>
-import SelectField from "../components/input/SelectField";
 import RecessList from "../components/RecessList";
 
 export default {
@@ -112,7 +116,6 @@ export default {
     };
   },
   components: {
-    "select-field": SelectField,
     "recess-list": RecessList,
   },
   computed: {

@@ -79,7 +79,6 @@
 
 <script>
 import { mapState, mapActions, mapGetters } from "vuex";
-import SelectField from "../components/input/SelectField";
 import RecessList from "../components/RecessList";
 
 export default {
@@ -94,7 +93,6 @@ export default {
     };
   },
   components: {
-    "select-field": SelectField,
     "recess-list": RecessList,
   },
   computed: {
@@ -129,7 +127,6 @@ export default {
     ]),
     onSubmit(event) {
       event.preventDefault();
-      this.calculateArea();
       this.$router.push({ name: 'Resultlist' });
     },
     onReset(event) {
@@ -139,25 +136,6 @@ export default {
       var lastView = localStorage.getItem("lastView");
       if (lastView) {
         this.$router.push({ name: lastView });
-      }
-    },
-    calculateArea() {
-      var factorizedPaintArea = this.getArea * this.formdata.wallTexture.value;
-      if (this.formdata.prevcolor.brightness == this.formdata.color.brightness) {
-        factorizedPaintArea *= this.getPaintingTypeValue('gleiche Farbe');
-      }
-      else if (this.formdata.prevcolor.brightness < this.formdata.color.brightness) {
-        factorizedPaintArea *= this.getPaintingTypeValue('dunkel auf hell');
-      }
-      else {
-        factorizedPaintArea *= this.getPaintingTypeValue('hell auf dunkel');
-      }
-    },
-    getPaintingTypeValue(label) {
-      for (var i = 0; i < this.parameterDict['Anstrichart'].length; i++) {
-        if (this.parameterDict['Anstrichart'][i]['label'] == label) {
-            return this.parameterDict['Anstrichart'][i]['value'];
-        }
       }
     },
     loadData() {
