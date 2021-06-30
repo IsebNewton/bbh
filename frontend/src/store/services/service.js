@@ -1,7 +1,8 @@
-// TODO: make dynamic, so that it works in local dev mode and in deployment
-var apiUrl = 'http://localhost:8080/api';
-
 import axios from 'axios';
+
+// basic settings for every request
+axios.defaults.baseURL = 'http://localhost:8080/api'; // TODO: change on deploy
+axios.defaults.withCredentials = true; // use cookies for authentication
 
 class service {
 
@@ -10,7 +11,7 @@ class service {
             method: 'GET',
             params: getParams
         };
-        return axios(`${apiUrl}/${endpointName}/${id}`, requestOptions).then(service.handleResponse);
+        return axios(`/${endpointName}/${id}`, requestOptions).then(service.handleResponse);
     }
 
     static getAll(endpointName, getParams){
@@ -18,7 +19,7 @@ class service {
             method: 'GET',
             params: getParams
         };
-        return axios(`${apiUrl}/${endpointName}`, requestOptions).then(service.handleHeaderResponse);
+        return axios(`/${endpointName}`, requestOptions).then(service.handleHeaderResponse);
     }
 
     static postOne(endpointName, body){
@@ -27,7 +28,7 @@ class service {
             headers: { 'Content-Type': 'application/json' },
             data: JSON.stringify(body)
         };
-        return axios(`${apiUrl}/${endpointName}`, requestOptions).then(service.handleResponse);
+        return axios(`/${endpointName}`, requestOptions).then(service.handleResponse);
     }
 
     static putOne(endpointName, id, body) {
@@ -36,14 +37,14 @@ class service {
             headers: { 'Content-Type': 'application/json' },
             data: JSON.stringify(body)
         };
-        return axios(`${apiUrl}/${endpointName}/${id}`, requestOptions).then(service.handleResponse);
+        return axios(`/${endpointName}/${id}`, requestOptions).then(service.handleResponse);
     }
 
     static delete(endpointName) {
         const requestOptions = {
             method: 'DELETE',
         };
-        return axios(`${apiUrl}/${endpointName}`, requestOptions).then(service.handleResponse);
+        return axios(`/${endpointName}`, requestOptions).then(service.handleResponse);
     }
 
     static deleteOne(endpointName, id, body) {
@@ -52,7 +53,7 @@ class service {
             headers: { 'Content-Type': 'application/json' },
             data: JSON.stringify(body)
         };
-        return axios(`${apiUrl}/${endpointName}/${id}`, requestOptions).then(service.handleResponse);
+        return axios(`/${endpointName}/${id}`, requestOptions).then(service.handleResponse);
     }
 
     static deleteOneSubEntity(endpointName, id, id2, body) {
@@ -61,7 +62,7 @@ class service {
             headers: { 'Content-Type': 'application/json' },
             data: JSON.stringify(body)
         };
-        return axios(`${apiUrl}/${endpointName}/${id}/${id2}`, requestOptions).then(service.handleResponse);
+        return axios(`/${endpointName}/${id}/${id2}`, requestOptions).then(service.handleResponse);
     }
 
     static postFile(endpointName, file, destination) {
@@ -73,7 +74,7 @@ class service {
             headers: { 'Content-Type': 'multipart/form-data' },
             data: formData
         };
-        return axios(`${apiUrl}/${endpointName}`, requestOptions).then(service.handleResponse);
+        return axios(`/${endpointName}`, requestOptions).then(service.handleResponse);
     }
 
     static deleteFile(endpointName, getParams) {
@@ -82,7 +83,7 @@ class service {
             headers: { 'Content-Type': 'multipart/form-data' },
             params: getParams
         };
-        return axios(`${apiUrl}/${endpointName}`, requestOptions).then(service.handleResponse);
+        return axios(`/${endpointName}`, requestOptions).then(service.handleResponse);
     }
 
     static downloadFile(endpointName, getParams, fileName) {
@@ -92,7 +93,7 @@ class service {
             params: getParams,
             responseType: 'blob'
         };
-        return axios(`${apiUrl}/${endpointName}`, requestOptions).then(({ data }) => {
+        return axios(`/${endpointName}`, requestOptions).then(({ data }) => {
             const downloadUrl = window.URL.createObjectURL(new Blob([data]));
             const link = document.createElement('a');
             link.href = downloadUrl;

@@ -11,6 +11,11 @@
     <p id="hello-from-js"></p>
     <h2>Click here to get data from the API</h2>
     <div>
+        <button onclick="checkLogin()">Is Logged In?</button>
+        <button onclick="login()">Login</button>
+        <button onclick="logout()">Logout</button>
+    </div>
+    <div>
         <button onclick="sendRequest('/api/brands')">Brands</button>
         <button onclick="sendRequest('/api/colors')">Colors</button>
         <button onclick="sendRequest('/api/parameters')">Parameters</button>
