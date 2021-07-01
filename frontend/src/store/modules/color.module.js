@@ -2,7 +2,8 @@ import service from '../services/service'
 import { getError } from './utils'
 
 const state = {
-    availableColors: []
+    availableColors: [],
+	colorDict: {}
 }
 
 const actions = {
@@ -45,6 +46,11 @@ const mutations = {
     setAvailableColors(state, availableColors) {
 		if (availableColors != undefined)
         	state.availableColors = availableColors.entities;
+			var dict = {};
+			for (var i  = 0; i < availableColors.entities.length; i++) {
+				dict[availableColors.entities[i].id] = availableColors.entities[i].color;
+			}
+			state.colorDict = dict;
 	},
 	setCurrentEntity(entity, val) {
 		console.log("current entity: ", entity, val)

@@ -12,6 +12,22 @@
       class="mt-3"
       outlined
       >
+      <template #cell(images)="data">
+        <img
+          v-if="data.item.images[0]"
+          class="img-contain"
+          :src="data.item.images[0]"
+          :alt="'Bild von ' + data.item.name"
+        />
+        <label v-else>Kein Bild hinterlegt!</label>
+      </template>
+      <template #cell(color)="data">
+        <label
+          v-for="colorId in data.item.color"
+          :key="colorId.key">
+          {{colorDict[colorId]}}
+        </label>
+      </template>
       <template #cell(sizeVariants)="data">
         <div class="text-nowrap"
           v-for="sizeVariant in data.item.sizeVariants"
@@ -25,12 +41,12 @@
       </template>
       <template #cell(edit)="data">
         <b-button variant="outline-secondary" @click="showEditTaskModal(data)">
-          <b-img left src="assets/edit.png" width="25px" alt="Produkt bearbeiten"></b-img>
+          <b-img left src="assets/edit.png" width="70px" alt="Produkt bearbeiten"></b-img>
         </b-button>
       </template>
       <template #cell(delete)="data">
         <b-button variant="outline-danger" @click="confirmRemoveProduct(data)">
-        <b-img left src="assets/delete.png" width="40px" alt="Produkt löschen"></b-img>
+        <b-img left src="assets/delete.png" width="70px" alt="Produkt löschen"></b-img>
         </b-button>
       </template>
       <template #table-busy>
@@ -93,7 +109,7 @@ export default {
           label: 'Farbbedarf'
         },
         {
-          key: 'image',
+          key: 'images',
           label: 'Bild'
         },
         {
@@ -125,6 +141,7 @@ export default {
   },
   computed: {
     ...mapState("auth", ["isAuthorized"]),
+    ...mapState("color", ["availableColors", "colorDict"]),
     ...mapState("product", ["availableProducts"]),
   },
   mounted(){
@@ -132,12 +149,16 @@ export default {
     this.$parent.adminnavigation = true;
     this.$parent.checkLoggedIn();
     this.fetchProducts();
+    this.getColors();
   },
   watch: {
   },
   methods: {
     ...mapActions("auth", [
       "getAuth"
+    ]),
+    ...mapActions("color", [
+      "getColors"
     ]),
     ...mapActions("product", [
       "getProducts",

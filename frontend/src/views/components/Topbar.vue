@@ -6,7 +6,18 @@
     <h2 class="mb-0 flex-grow-1 text-center text-white text-shadow">
       {{ title }}
     </h2>
-    <b-button v-if="loggedIn" @click="logout">Abmelden</b-button>
+    <a
+      v-if="loggedIn"
+      class="btn btn-primary"
+      href="#/login">
+      Administration
+    </a>
+    <b-button
+      v-if="loggedIn"
+      variant="primary"
+      @click="logout">
+      Abmelden
+    </b-button>
   </header>
 </template>
 
