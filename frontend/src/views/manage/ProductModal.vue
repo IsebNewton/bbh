@@ -4,12 +4,12 @@
         v-model="showProductModal"
         :title="modalTitle"
         size="lg"
-        :header-bg-variant="headerBgVariant"
-        :header-text-variant="headerTextVariant"
-        :body-bg-variant="bodyBgVariant"
-        :body-text-variant="bodyTextVariant"
-        :footer-bg-variant="footerBgVariant"
-        :footer-text-variant="footerTextVariant"
+        header-bg-variant="dark"
+        header-text-variant="light"
+        body-bg-variant="light"
+        body-text-variant="dark"
+        footer-bg-variant="light"
+        footer-text-variant="dark"
         :hide-footer="true"
       >
         <b-form @submit="onSubmit" @reset="onReset">
@@ -32,6 +32,35 @@
 
           <div class="row align-items-center mb-3">
             <div class="col-4">
+              <label class="text-shadow text-bold">Marke:</label>
+            </div>
+            <div class="col-4">
+              <search-autocomplete
+                class="formfield"
+                id="autocompleteBrand"
+                v-model="product.brand"
+                :items="productBrands">
+              </search-autocomplete>
+            </div>
+          </div>
+
+          <div class="row align-items-center mb-3">
+            <div class="col-4">
+              <label class="text-shadow text-bold">Beschreibung:</label>
+            </div>
+            <div class="col-4">
+              <b-form-textarea
+                class="formfield"
+                id="textareaDescription"
+                v-model="product.description"
+                placeholder="Beschreibung eingeben"
+                rows="3"
+              ></b-form-textarea>
+            </div>
+          </div>
+
+          <div class="row align-items-center mb-3">
+            <div class="col-4">
               <label class="text-shadow text-bold">Farbbedarf:</label>
             </div>
             <div class="col-4">
@@ -39,7 +68,7 @@
                 class="formfield"
                 id="inputName"
                 v-model="product.coverage"
-                type="text"
+                type="number"
                 placeholder="Farbbedarf eingeben"
                 required
               ></b-form-input>
@@ -66,19 +95,32 @@
 
           <div class="row align-items-center mb-3">
             <div class="col-4">
-              <label class="text-shadow text-bold">Typ:</label>
+              <label class="text-shadow text-bold">zugeordnete Farben:</label>
             </div>
             <div class="col-4">
-              <select
+              <b-form-checkbox-group
+                v-model="product.color"
+                :options="availableColors"
+                class="mb-3"
+                value-field="id"
+                text-field="color"
+              ></b-form-checkbox-group>
+            </div>
+          </div>
+
+          <div class="row align-items-center mb-3">
+            <div class="col-4">
+              <label class="text-shadow text-bold">Produkt-URL:</label>
+            </div>
+            <div class="col-4">
+              <b-form-input
                 class="formfield"
-                id="inputType"
-                v-model="product.color">
-                <option
-                    v-for="option in availableColors"
-                    :key="option.id"
-                    v-bind:value="option"
-                >{{option.color}}</option>
-              </select>
+                id="inputImageurl"
+                v-model="product.link"
+                type="text"
+                placeholder="Produkt-URL eingeben"
+                required
+              ></b-form-input>
             </div>
           </div>
 
@@ -90,7 +132,7 @@
               <b-form-input
                 class="formfield"
                 id="inputImageurl"
-                v-model="product.imageUrl"
+                v-model="product.images[0]"
                 type="text"
                 placeholder="Bild-URL eingeben"
                 required
@@ -98,8 +140,8 @@
             </div>
           </div>
 
-            <b-button type="reset" variant="danger">Zurücksetzen</b-button>
-            <b-button type="submit" variant="primary">Speichern</b-button>
+          <b-button type="reset" variant="danger">Zurücksetzen</b-button>
+          <b-button type="submit" variant="primary">Speichern</b-button>
         </b-form>
       </b-modal>
     </div>
@@ -107,31 +149,28 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
+import SearchAutocomplete from "../components/SearchAutocomplete";
 
 export default {
   props: {
-    productTypes: Array
+    productTypes: Array,
+    productBrands: Array,
+    exampleProduct: Object
   },
   data() {
     return {
         showProductModal: false,
         modalTitle: '',
         editMode: false,
-        headerBgVariant: 'dark',
-        headerTextVariant: 'light',
-        bodyBgVariant: 'light',
-        bodyTextVariant: 'dark',
-        footerBgVariant: 'light',
-        footerTextVariant: 'dark',
         product: {
           name: '',
+          description: '',
           brand: '',
           link: '',
-          price: '',
           sizeVariants: [],
-          color: null,
+          color: [],
+          hexColor: '',
           coverage: null,
-          imageUrl: '',
           images: [],
           type: ''
         },
@@ -139,6 +178,7 @@ export default {
     };
   },
   components: {
+    "search-autocomplete": SearchAutocomplete,
   },
   computed: {
     ...mapState("color", ["availableColors"]),
@@ -155,27 +195,27 @@ export default {
     ...mapActions("product", ["postProduct", "putProduct"]),
       onSubmit(event) {
         event.preventDefault();
-        if (this.uploadFile) {
-          this.setProductFile();
-          this.postFile({file: this.file, destination: this.selectedFileDestination});
-        }
+        console.log("Produkt", this.product);
         this.saveProducts();
       },
       saveProducts() {
+        for (var k in this.product) {
+          this.exampleProduct[k] = this.product[k];
+        }
+        var id = this.exampleProduct.id;
+        delete this.exampleProduct.id;
         if (this.editMode == true)
         {
-          this.putProduct(this.product).then(
+          this.putProduct({id: id, data: this.exampleProduct}).then(
             function() {
               this.showProductModal = false;
-              this.saveProductLabels();
             }.bind(this)
           );
         }
         else
         {
-          this.postProduct(this.product).then(
+          this.postProduct(this.exampleProduct).then(
             function() {
-              this.product.id = this.postedProductId;
               this.showProductModal = false;
             }.bind(this)
           );
@@ -204,10 +244,8 @@ export default {
       showEditProductModal(data) {
         this.editMode = true;
         this.modalTitle = "Produkt ändern";
-        this.originalProduct = data;
-        this.product.id = data.item.id;
-        this.product.title = data.item.title;
-        this.product.description = data.item.description;
+        this.product = data.item;
+        this.originalProduct = data.item;
         this.showProductModal = true;
       },
   }

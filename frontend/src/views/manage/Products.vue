@@ -47,7 +47,9 @@
     </modal-confirm-action>
     <product-modal 
       ref="productModal"
-      :productTypes="productTypes">
+      :productTypes="productTypes"
+      :exampleProduct="availableProducts[0]"
+      :productBrands="productBrands">
     </product-modal>
   </div>
 </template>        
@@ -96,7 +98,8 @@ export default {
       ],
       selectedProduct: null,
       isBusy: false,
-      productTypes: []
+      productTypes: [],
+      productBrands: []
     };
   },
   components: {
@@ -134,12 +137,17 @@ export default {
       this.getProducts().then(
         function() {
           var _productTypes = [];
+          var _productBrands = [];
           for (var i = 0; i < this.availableProducts.length; i++) {
             if (_productTypes.indexOf(this.availableProducts[i].type) === -1) {
               _productTypes.push(this.availableProducts[i].type);
             }
+            if (_productBrands.indexOf(this.availableProducts[i].brand) === -1) {
+              _productBrands.push(this.availableProducts[i].brand);
+            }
           }
           this.productTypes = _productTypes;
+          this.productBrands = _productBrands;
         }.bind(this)
       );
     },
@@ -153,15 +161,6 @@ export default {
           }.bind(this)
         );
       }
-    },
-    checkLoggedIn() {
-      this.getAuth().then(
-        function() {
-          if (this.isAuthorized) {
-            this.$router.push({ name: 'Produkte' });
-          }
-        }.bind(this)
-      );
     }
   }
 }
