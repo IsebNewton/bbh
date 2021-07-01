@@ -3,7 +3,8 @@ import { getError } from './utils'
 
 const state = {
     availableParameters: [],
-	parameterDict: {}
+	parameterDict: {},
+	parameters: {}
 }
 
 const actions = {
@@ -29,8 +30,8 @@ const actions = {
 		);
 		return currPromise;
 	},
-	putParameter({ commit, dispatch }, parameterData) {
-		var currPromise = service.putOne('parameters', parameterData.id, parameterData).then(
+	putParameter({ commit, dispatch }, parameters) {
+		var currPromise = service.putAll('parameters', parameters).then(
             entity => {
                 commit('setCurrentEntity', entity);
             },
@@ -54,6 +55,7 @@ const mutations = {
 				else {
 					dict[availableParameters.entities[i].group].push(availableParameters.entities[i]);
 				}
+				state.parameters[availableParameters.entities[i].id] = availableParameters.entities[i].value.toString();
 			}
 			state.parameterDict = dict;
 		}

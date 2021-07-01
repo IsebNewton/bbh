@@ -40,6 +40,15 @@ class service {
         return axios(`${apiUrl}/${endpointName}/${id}`, requestOptions).then(service.handleResponse);
     }
 
+    static putAll(endpointName, body) {
+        const requestOptions = {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            data: JSON.stringify(body)
+        };
+        return axios(`${apiUrl}/${endpointName}`, requestOptions).then(service.handleResponse);
+    }
+
     static delete(endpointName) {
         const requestOptions = {
             method: 'DELETE',

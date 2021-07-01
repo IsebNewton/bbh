@@ -78,7 +78,7 @@
 </template>
 
 <script>
-import { mapState, mapActions, mapGetters } from "vuex";
+import { mapState, mapActions } from "vuex";
 import RecessList from "../components/RecessList";
 
 export default {
@@ -120,10 +120,6 @@ export default {
     ]),
     ...mapActions("parameter", [
       "getParameters"
-    ]),
-    ...mapGetters("colorcalculator", [
-        "getArea",
-        "getView"
     ]),
     onSubmit(event) {
       event.preventDefault();

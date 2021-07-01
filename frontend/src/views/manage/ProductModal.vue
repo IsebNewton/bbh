@@ -248,7 +248,6 @@ export default {
     ...mapActions("product", ["postProduct", "putProduct"]),
       onSubmit(event) {
         event.preventDefault();
-        console.log("Produkt", this.product);
         this.saveProducts();
       },
       saveProducts() {
@@ -282,7 +281,7 @@ export default {
         }
       },
       onReset(event) {
-        event.preventDefault()
+        event.preventDefault();
         if (this.editMode == true)
         {
           this.showEditProductModal(this.originalProduct);
@@ -336,7 +335,6 @@ export default {
       },
       changedAutocompleteBrand(input) {
         this.product.brand = input;
-        console.log(input);
       }
   }
 }
