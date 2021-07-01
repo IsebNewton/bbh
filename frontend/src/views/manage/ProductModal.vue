@@ -110,6 +110,48 @@
 
           <div class="row align-items-center mb-3">
             <div class="col-4">
+              <label class="text-shadow text-bold">Varianten:</label>
+            </div>
+            <div class="col-3">
+              <b-button variant="primary" @click="addSizeVariant()">hinzufügen</b-button>
+            </div>
+          </div>
+          <div 
+            class="row align-items-center mb-3"
+            v-for="sizeVariant in product.sizeVariants"
+            :key="sizeVariant.id">
+            <div class="col-4">
+            </div>
+            <div class="col-3">
+              <b-form-input
+                class="formfield"
+                id="inputSize"
+                v-model="sizeVariant.size"
+                type="number"
+                placeholder="Größe eingeben"
+                required
+              ></b-form-input>
+            </div>
+            <div class="col-3">
+              <b-form-input
+                class="formfield"
+                id="inputPrice"
+                v-model="sizeVariant.price"
+                type="number"
+                placeholder="Preis eingeben"
+                required
+              ></b-form-input>
+            </div>
+            <div class="col-1">
+              <b-button variant="outline-secondary" @click="removeSizeVariant(sizeVariant)">
+                <b-img left src="assets/delete.png" width="25px" alt="Produkt bearbeiten"></b-img>
+              </b-button>
+            </div>
+          </div>
+
+
+          <div class="row align-items-center mb-3">
+            <div class="col-4">
               <label class="text-shadow text-bold">Produkt-URL:</label>
             </div>
             <div class="col-4">
@@ -150,6 +192,7 @@
 <script>
 import { mapState, mapActions } from "vuex";
 import SearchAutocomplete from "../components/SearchAutocomplete";
+require("./../../../public/assets/delete.png");
 
 export default {
   props: {
@@ -237,17 +280,48 @@ export default {
       showAddProductModal() {
         this.editMode = false;
         this.modalTitle = "Produkt hinzufügen";
-        this.product.title = '';
-        this.product.description = '';
+        this.product = {
+          name: '',
+          description: '',
+          brand: '',
+          link: '',
+          sizeVariants: [],
+          color: [],
+          hexColor: '',
+          coverage: null,
+          images: [],
+          type: ''
+        },
         this.showProductModal = true;
       },
       showEditProductModal(data) {
         this.editMode = true;
         this.modalTitle = "Produkt ändern";
-        this.product = data.item;
-        this.originalProduct = data.item;
+        this.product = JSON.parse(JSON.stringify(data.item));
+        for (var i = 0; i < this.product.sizeVariants.length; i++) {
+          this.product.sizeVariants[i].id = i;
+        }
+        this.prodoriginalProductuct = JSON.parse(JSON.stringify(data.item));
         this.showProductModal = true;
       },
+      addSizeVariant() {
+        this.product.sizeVariants.push({
+          id: this.product.sizeVariants.length,
+          size: '',
+          price: null,
+        });
+      },
+      removeSizeVariant(sizeVariant) {
+        for (var i = 0; i < this.product.sizeVariants.length; i++) {
+          if (this.product.sizeVariants[i].id == sizeVariant.id) {
+            this.product.sizeVariants.splice(i, 1);
+            for (var j = i; j < this.product.sizeVariants.length; j++) {
+              this.product.sizeVariants[j].id--;
+            }
+            break;
+          }
+        }
+      }
   }
 }
 </script>

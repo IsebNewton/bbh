@@ -28,6 +28,17 @@ const actions = {
 		);
 		return currPromise;
 	},
+	postProduct({ commit, dispatch }, product) {
+		var currPromise = service.postOne('products', product).then(
+            entity => {
+                commit('setCurrentEntity', entity);
+            },
+            error => {
+                dispatch('alert/error', getError(error), { root: true });
+            }
+		);
+		return currPromise;
+	},
 	putProduct({ commit, dispatch }, product) {
 		var currPromise = service.putOne('products', product.id, product.data).then(
             entity => {

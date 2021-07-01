@@ -1,6 +1,7 @@
 <template>
   <div class="container">
     <h1 class="text-shadow">Produktübersicht</h1>
+    <b-button variant="primary" @click="showAddProductModal();">Produkt hinzufügen</b-button>
     <b-table
       striped
       responsive
@@ -23,13 +24,13 @@
         <a :href="data.item.link" target="_blank">{{data.item.link}}</a>
       </template>
       <template #cell(edit)="data">
-        <b-button variant="outline-secondary" class="editbutton">
-          <b-img left src="assets/edit.png" @click="showEditTaskModal(data)" width="20px" alt="Produkt bearbeiten"></b-img>
+        <b-button variant="outline-secondary" @click="showEditTaskModal(data)">
+          <b-img left src="assets/edit.png" width="25px" alt="Produkt bearbeiten"></b-img>
         </b-button>
       </template>
       <template #cell(delete)="data">
-        <b-button variant="outline-danger" class="editbutton">
-        <b-img left src="assets/delete.png" @click="confirmRemoveProduct(data)" width="20px" alt="Produkt löschen"></b-img>
+        <b-button variant="outline-danger" @click="confirmRemoveProduct(data)">
+        <b-img left src="assets/delete.png" width="40px" alt="Produkt löschen"></b-img>
         </b-button>
       </template>
       <template #table-busy>
@@ -72,8 +73,24 @@ export default {
           label: 'Name'
         },
         {
+          key: 'description',
+          label: 'Beschreibung'
+        },
+        {
+          key: 'brand',
+          label: 'Marke'
+        },
+        {
           key: 'type',
-          label: 'Typ'
+          label: 'Produkttyp'
+        },
+        {
+          key: 'color',
+          label: 'Farben'
+        },
+        {
+          key: 'coverage',
+          label: 'Farbbedarf'
         },
         {
           key: 'image',
@@ -161,6 +178,9 @@ export default {
           }.bind(this)
         );
       }
+    },
+    showAddProductModal() {
+      this.$refs.productModal.showAddProductModal();
     }
   }
 }
