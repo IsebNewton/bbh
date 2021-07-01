@@ -116,10 +116,20 @@
               <b-button variant="primary" @click="addSizeVariant()">hinzufügen</b-button>
             </div>
           </div>
+          <div class="row align-items-center mb-3">
+            <div class="col-4">
+            </div>
+            <div class="col-3">
+              <label>Größe (in L):</label>
+            </div>
+            <div class="col-3">
+              <label>Preis (in €):</label>
+            </div>
+          </div>
           <div 
             class="row align-items-center mb-3"
             v-for="sizeVariant in product.sizeVariants"
-            :key="sizeVariant.id">
+            :key="sizeVariant.key">
             <div class="col-4">
             </div>
             <div class="col-3">
@@ -247,11 +257,17 @@ export default {
         }
         var id = this.exampleProduct.id;
         delete this.exampleProduct.id;
+        this.exampleProduct.coverage = Number(this.exampleProduct.coverage);
+        for (var i = 0; i < this.product.sizeVariants.length; i++) {
+          this.product.sizeVariants[i].size = Number(this.product.sizeVariants[i].size);
+          this.product.sizeVariants[i].price = Number(this.product.sizeVariants[i].price);
+        }
         if (this.editMode == true)
         {
           this.putProduct({id: id, data: this.exampleProduct}).then(
             function() {
               this.showProductModal = false;
+              this.$parent.fetchProducts();
             }.bind(this)
           );
         }
@@ -260,6 +276,7 @@ export default {
           this.postProduct(this.exampleProduct).then(
             function() {
               this.showProductModal = false;
+              this.$parent.fetchProducts();
             }.bind(this)
           );
         }
@@ -306,7 +323,6 @@ export default {
       },
       addSizeVariant() {
         this.product.sizeVariants.push({
-          id: this.product.sizeVariants.length,
           size: '',
           price: null,
         });
@@ -315,10 +331,6 @@ export default {
         for (var i = 0; i < this.product.sizeVariants.length; i++) {
           if (this.product.sizeVariants[i].id == sizeVariant.id) {
             this.product.sizeVariants.splice(i, 1);
-            for (var j = i; j < this.product.sizeVariants.length; j++) {
-              this.product.sizeVariants[j].id--;
-            }
-            break;
           }
         }
       }

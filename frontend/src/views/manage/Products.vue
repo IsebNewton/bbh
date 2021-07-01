@@ -15,7 +15,7 @@
       <template #cell(sizeVariants)="data">
         <div class="text-nowrap"
           v-for="sizeVariant in data.item.sizeVariants"
-          :key="sizeVariant.size">
+          :key="sizeVariant.key">
           <label>{{sizeVariant.size}} L</label>
           <label>{{sizeVariant.price}} €</label>
         </div>
