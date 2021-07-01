@@ -39,7 +39,8 @@
                 class="formfield"
                 id="autocompleteBrand"
                 v-model="product.brand"
-                :items="productBrands">
+                :items="productBrands"
+                @input="changedAutocompleteBrand">
               </search-autocomplete>
             </div>
           </div>
@@ -187,7 +188,6 @@
                 v-model="product.images[0]"
                 type="text"
                 placeholder="Bild-URL eingeben"
-                required
               ></b-form-input>
             </div>
           </div>
@@ -333,6 +333,10 @@ export default {
             this.product.sizeVariants.splice(i, 1);
           }
         }
+      },
+      changedAutocompleteBrand(input) {
+        this.product.brand = input;
+        console.log(input);
       }
   }
 }
