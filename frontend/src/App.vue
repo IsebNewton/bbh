@@ -63,6 +63,9 @@ export default {
       this.getAuth().then(
         function() {
           this.loggedIn = this.isAuthorized;
+          if (!this.loggedIn) {
+            this.$router.push({ name: 'Login' });
+          }
         }.bind(this)
       );
     }

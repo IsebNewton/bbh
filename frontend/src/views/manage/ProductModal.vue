@@ -68,7 +68,7 @@
                 class="formfield"
                 id="inputName"
                 v-model="product.coverage"
-                type="text"
+                type="number"
                 placeholder="Farbbedarf eingeben"
                 required
               ></b-form-input>
@@ -110,13 +110,29 @@
 
           <div class="row align-items-center mb-3">
             <div class="col-4">
+              <label class="text-shadow text-bold">Produkt-URL:</label>
+            </div>
+            <div class="col-4">
+              <b-form-input
+                class="formfield"
+                id="inputImageurl"
+                v-model="product.link"
+                type="text"
+                placeholder="Produkt-URL eingeben"
+                required
+              ></b-form-input>
+            </div>
+          </div>
+
+          <div class="row align-items-center mb-3">
+            <div class="col-4">
               <label class="text-shadow text-bold">Bild-URL:</label>
             </div>
             <div class="col-4">
               <b-form-input
                 class="formfield"
                 id="inputImageurl"
-                v-model="product.images"
+                v-model="product.images[0]"
                 type="text"
                 placeholder="Bild-URL eingeben"
                 required
@@ -124,8 +140,8 @@
             </div>
           </div>
 
-            <b-button type="reset" variant="danger">Zurücksetzen</b-button>
-            <b-button type="submit" variant="primary">Speichern</b-button>
+          <b-button type="reset" variant="danger">Zurücksetzen</b-button>
+          <b-button type="submit" variant="primary">Speichern</b-button>
         </b-form>
       </b-modal>
     </div>
@@ -155,7 +171,7 @@ export default {
           color: [],
           hexColor: '',
           coverage: null,
-          images: '',
+          images: [],
           type: ''
         },
         originalProduct: null
@@ -186,10 +202,11 @@ export default {
         for (var k in this.product) {
           this.exampleProduct[k] = this.product[k];
         }
+        var id = this.exampleProduct.id;
         delete this.exampleProduct.id;
         if (this.editMode == true)
         {
-          this.putProduct(this.exampleProduct).then(
+          this.putProduct({id: id, data: this.exampleProduct}).then(
             function() {
               this.showProductModal = false;
             }.bind(this)
@@ -227,7 +244,8 @@ export default {
       showEditProductModal(data) {
         this.editMode = true;
         this.modalTitle = "Produkt ändern";
-        this.originalProduct = data;
+        this.product = data.item;
+        this.originalProduct = data.item;
         this.showProductModal = true;
       },
   }

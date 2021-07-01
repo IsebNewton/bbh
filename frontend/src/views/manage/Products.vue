@@ -161,15 +161,6 @@ export default {
           }.bind(this)
         );
       }
-    },
-    checkLoggedIn() {
-      this.getAuth().then(
-        function() {
-          if (this.isAuthorized) {
-            this.$router.push({ name: 'Produkte' });
-          }
-        }.bind(this)
-      );
     }
   }
 }
