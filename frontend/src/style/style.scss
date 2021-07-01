@@ -32,4 +32,32 @@ img {
   background-color: #ededed !important;
 }
 
+// Autocomplete Component -------------------------------------------------------------------
+
+.autocomplete {
+  position: relative;
+}
+
+.autocomplete-results {
+  padding: 0;
+  margin: 0;
+  border: 1px solid #ededed;
+  height: 120px;
+  overflow: auto;
+}
+
+.autocomplete-result {
+  list-style: none;
+  text-align: left;
+  padding: 4px 2px;
+  cursor: pointer;
+}
+
+.autocomplete-result.is-active,
+.autocomplete-result:hover {
+  background-color: #3d48af;
+  color: white;
+}
+
 // Shame.css -------------------------------------------------------------------
+

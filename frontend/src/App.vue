@@ -62,7 +62,7 @@ export default {
     checkLoggedIn() {
       this.getAuth().then(
         function() {
-          this.loggedIn = true;//this.isAuthorized; //TODO: Anpassen, wenn Authentifizierung funktioniert
+          this.loggedIn = this.isAuthorized;
         }.bind(this)
       );
     }
