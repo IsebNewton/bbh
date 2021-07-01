@@ -41,12 +41,12 @@
       </template>
       <template #cell(edit)="data">
         <b-button variant="outline-secondary" @click="showEditTaskModal(data)">
-          <b-img left src="assets/edit.png" width="70px" alt="Produkt bearbeiten"></b-img>
+          <b-img left src="assets/edit.png" width="150px" alt="Produkt bearbeiten"></b-img>
         </b-button>
       </template>
       <template #cell(delete)="data">
         <b-button variant="outline-danger" @click="confirmRemoveProduct(data)">
-        <b-img left src="assets/delete.png" width="70px" alt="Produkt löschen"></b-img>
+        <b-img left src="assets/delete.png" width="150px" alt="Produkt löschen"></b-img>
         </b-button>
       </template>
       <template #table-busy>
@@ -192,7 +192,6 @@ export default {
     removeProduct(data) {
       if (data.item)
       {
-        console.log(data);
         this.deleteProduct(data.item.id).then(
           function() {
             this.fetchProducts();

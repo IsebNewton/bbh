@@ -57,7 +57,6 @@ export default {
                 }
             }
         }
-        console.log(this.$parent)
         this.$parent._data[this.arrayname].push({
             name: _name + suffix,
             length: _length,

@@ -48,6 +48,7 @@ const mutations = {
 		if (availableParameters != undefined) {
 			state.availableParameters = availableParameters.entities;
 			var dict = {};
+			var dict2 = {};
 			for (var i  = 0; i < availableParameters.entities.length; i++) {
 				if (dict[availableParameters.entities[i].group] == null) {
 					dict[availableParameters.entities[i].group] = [availableParameters.entities[i]];
@@ -55,9 +56,10 @@ const mutations = {
 				else {
 					dict[availableParameters.entities[i].group].push(availableParameters.entities[i]);
 				}
-				state.parameters[availableParameters.entities[i].id] = availableParameters.entities[i].value.toString();
+				dict2[availableParameters.entities[i].id] = availableParameters.entities[i].value.toString();
 			}
 			state.parameterDict = dict;
+			state.parameters = dict2;
 		}
         	
 	},

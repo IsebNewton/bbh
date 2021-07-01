@@ -284,13 +284,22 @@ export default {
         event.preventDefault();
         if (this.editMode == true)
         {
-          this.showEditProductModal(this.originalProduct);
+          this.product = JSON.parse(JSON.stringify(this.originalProduct));
         }
         else
         {
-          this.product.title = '';
-          this.product.description = '';
-          this.product.file = '';
+          this.product = {
+            name: '',
+            description: '',
+            brand: '',
+            link: '',
+            sizeVariants: [],
+            color: [],
+            hexColor: '',
+            coverage: null,
+            images: [],
+            type: ''
+          };
         }
       },
       showAddProductModal() {
@@ -307,7 +316,7 @@ export default {
           coverage: null,
           images: [],
           type: ''
-        },
+        };
         this.showProductModal = true;
       },
       showEditProductModal(data) {
@@ -317,7 +326,7 @@ export default {
         for (var i = 0; i < this.product.sizeVariants.length; i++) {
           this.product.sizeVariants[i].id = i;
         }
-        this.prodoriginalProductuct = JSON.parse(JSON.stringify(data.item));
+        this.originalProduct = JSON.parse(JSON.stringify(this.product));
         this.showProductModal = true;
       },
       addSizeVariant() {

@@ -28,6 +28,7 @@
         </div>
       </div>
 
+      <b-button type="reset" variant="danger">Zurücksetzen</b-button>
       <b-button type="submit" variant="primary">Speichern</b-button>
     </b-form>
 
@@ -76,6 +77,7 @@ export default {
     },
     onReset(event) {
       event.preventDefault();
+      this.getParameters();
     },
   }
 }
