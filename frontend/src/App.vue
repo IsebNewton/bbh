@@ -3,12 +3,12 @@
     <topbar :title="title" :loggedIn="loggedIn"></topbar>
 
     <div class="flex-fill overflow-auto d-flex">
-      <!-- <sidebar-menu
+      <sidebar-menu
         v-if="adminnavigation"
         :menu="menu"
         relative
         width="250px"
-      ></sidebar-menu> -->
+      ></sidebar-menu>
       <router-view />
     </div>
 

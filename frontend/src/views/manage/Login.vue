@@ -46,7 +46,7 @@
 
       <div class="row">
         <div class="col-3 offset-5">
-          <b-button type="submit" variant="primary">Login</b-button>
+          <b-button type="submit" variant="primary">Anmelden</b-button>
         </div>
         <div class="col-3"></div>
       </div>

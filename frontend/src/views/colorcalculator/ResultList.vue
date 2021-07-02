@@ -1,32 +1,34 @@
 <template>
-  <div class="container py-3">
-    <h2 class="text-center text-shadow">
-      Sie haben {{ area.toFixed(1) }} m² zu streichen
-    </h2>
+  <div class="bg-paint d-flex w-100 h-100 overflow-auto">
+    <div class="container">
+      <h2 class="text-center text-shadow mb-5 mt-3">
+        Sie haben {{ area.toFixed(1) }} m² zu streichen
+      </h2>
 
-    <div class="d-flex align-items-center justify-content-between my-3">
-      <b-button @click="goBack()" variant="primary">zurück</b-button>
+      <div class="d-flex align-items-center justify-content-between mb-3">
+        <b-button @click="goBack()" variant="primary">zurück</b-button>
 
-      <div>
-        <label class="text-shadow text-bold"> gewählte Farbe: </label>
-        <dropdown
-          id="inputColor"
-          :items="availableColors"
-          :value="selectedParams.color"
-          @change="changedColor"
-          useText="color"
-        >
-        </dropdown>
+        <div>
+          <label class="text-shadow text-bold"> gewählte Farbe: </label>
+          <dropdown
+            id="inputColor"
+            :items="availableColors"
+            :value="selectedParams.color"
+            @change="changedColor"
+            useText="color"
+          >
+          </dropdown>
+        </div>
       </div>
-    </div>
 
-    <product
-      class="mb-5"
-      v-for="product in shownProducts"
-      :key="product.id"
-      :product="product"
-      :factorizedPaintArea="factorizedPaintArea"
-    ></product>
+      <product
+        class="mb-4"
+        v-for="product in shownProducts"
+        :key="product.id"
+        :product="product"
+        :factorizedPaintArea="factorizedPaintArea"
+      ></product>
+    </div>
   </div>
 </template>
 
@@ -132,8 +134,10 @@ export default {
       if (this.selectedParams.color) {
         for (var i = 0; i < this.availableProducts.length; i++) {
           for (var j = 0; j < this.availableProducts[i].color.length; j++) {
-            if (this.availableProducts[i].color[j] == this.selectedParams.color.id) {
-                this.shownProducts.push(this.availableProducts[i]);
+            if (
+              this.availableProducts[i].color[j] == this.selectedParams.color.id
+            ) {
+              this.shownProducts.push(this.availableProducts[i]);
             }
           }
         }

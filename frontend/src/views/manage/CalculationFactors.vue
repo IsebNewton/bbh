@@ -1,57 +1,49 @@
 <template>
   <div class="container">
-    <div class="row">
-      <div class="col-6 offset-3">
-        <h1 class="text-shadow mb-4">Berechnungsfaktoren</h1>
-        <b-form @submit="onSubmit" @reset="onReset" @change="onChange">
-          <div
-            v-for="parameterGroup in parameterDict"
-            :key="parameterGroup.key"
-            class="row align-items-center mb-3"
-          >
-            <h2 class="fs-4 text-shadow mb-4">{{ parameterGroup[0].group }}</h2>
-            <div
-              v-for="parameter in parameterGroup"
-              :key="parameter.key"
-              class="row align-items-center mb-3 pe-0"
-            >
-              <div class="col-4">
-                <label class="text-shadow text-bold">{{
-                  parameter.label
-                }}</label>
-              </div>
-              <div class="col-8">
-                <b-form-input
-                  class="formfield"
-                  step="0.01"
-                  :id="'inputParameter' + parameter.id"
-                  v-model="parameters[parameter.id]"
-                  type="number"
-                  min="0"
-                  oninput="validity.valid||(value='');"
-                  required
-                ></b-form-input>
-              </div>
-            </div>
-            <hr />
+    <h1 class="text-shadow mb-4">Berechnungsfaktoren</h1>
+    <b-form @submit="onSubmit" @reset="onReset" @change="onChange">
+      <div
+        v-for="parameterGroup in parameterDict"
+        :key="parameterGroup.key"
+        class="mb-5"
+      >
+        <h2 class="fs-4 text-shadow mb-4">{{ parameterGroup[0].group }}</h2>
+        <div
+          v-for="parameter in parameterGroup"
+          :key="parameter.key"
+          class="row align-items-center mb-3 pe-0"
+        >
+          <div class="col-2">
+            <label class="text-shadow text-bold">{{ parameter.label }}</label>
           </div>
-
-          <div class="row">
-            <div class="col-1">
-              <span class="badge bg-success" v-if="showSaveStatus"
-                >Gespeichert</span
-              >
-            </div>
-            <div class="col-11 text-end">
-              <b-button type="reset" variant="danger">Zurücksetzen</b-button>
-              <b-button type="submit" variant="primary">Speichern</b-button>
-            </div>
+          <div class="col-2">
+            <b-form-input
+              step="0.01"
+              :id="'inputParameter' + parameter.id"
+              v-model="parameters[parameter.id]"
+              type="number"
+              min="0"
+              oninput="validity.valid||(value='');"
+              required
+            ></b-form-input>
           </div>
-        </b-form>
+        </div>
       </div>
-    </div>
+
+      <div class="row">
+        <div class="col-1">
+          <span class="badge bg-success" v-if="showSaveStatus">
+            Gespeichert
+          </span>
+        </div>
+        <div class="col-3 text-end">
+          <b-button type="reset" variant="danger">Zurücksetzen</b-button>
+          <b-button type="submit" variant="primary">Speichern</b-button>
+        </div>
+      </div>
+    </b-form>
   </div>
-</template>        
+</template>
 
 <script>
 import { mapState, mapActions } from "vuex";

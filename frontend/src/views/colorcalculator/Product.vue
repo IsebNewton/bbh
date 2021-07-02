@@ -1,5 +1,5 @@
 <template>
-  <div class="shadow">
+  <div class="shadow bg-white">
     <div class="row align-items-center">
       <div class="col-2">
         <div class="ratio ratio-1x1">
