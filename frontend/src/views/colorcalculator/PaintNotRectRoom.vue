@@ -104,6 +104,8 @@
               </div>
             </b-form>
 
+            <p v-if="showNoWallError">Bitte geben Sie mindestens eine Zimmerwand ein!</p>
+
             <b-button variant="primary" @click="goBack">Zurück</b-button>
             <b-button type="submit" variant="primary">Weiter</b-button>
           </b-form>
@@ -151,6 +153,7 @@ export default {
       },
       recesses: [],
       walls: [],
+      showNoWallError: false
     };
   },
   components: {
@@ -185,9 +188,14 @@ export default {
   methods: {
     onSubmit(event) {
       event.preventDefault();
-      this.calculateArea();
-      localStorage.setItem("lastView", "NichtRechteckigesZimmerStreichen");
-      this.$router.push({ name: "Parameterauswahl" });
+      if (this.walls.length > 0) {
+        this.calculateArea();
+        localStorage.setItem("lastView", "NichtRechteckigesZimmerStreichen");
+        this.$router.push({ name: "Parameterauswahl" });
+      }
+      else {
+        this.showNoWallError = true;
+      }
     },
     onReset(event) {
       event.preventDefault();
@@ -214,6 +222,7 @@ export default {
       );
       this.wall.name = null;
       this.wall.length = null;
+      this.showNoWallError = false;
     },
     calculateArea() {
       var area = 0;

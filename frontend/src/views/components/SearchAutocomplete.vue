@@ -98,9 +98,13 @@
         }
       },
       handleClickOutside(event) {
-        if (!this.$el.contains(event.target)) {
+        if (!this.$el.contains(event.target) || this.search != '') {
           this.isOpen = false;
           this.arrowCounter = -1;
+        }
+        else {
+          this.filterResults();
+          this.isOpen = true;
         }
       },
       onArrowDown() {

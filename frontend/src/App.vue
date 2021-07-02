@@ -7,6 +7,7 @@
         v-if="adminnavigation"
         :menu="menu"
         relative
+        hideToggle
         width="250px"
       ></sidebar-menu>
       <router-view />
@@ -50,13 +51,11 @@ export default {
         },
         {
           href: "/products",
-          title: "Produktübersicht",
-          icon: "fa fa-user",
+          title: "Produktübersicht"
         },
         {
           href: "/calculationfactors",
-          title: "Berechnungsfaktoren",
-          icon: "fa fa-user",
+          title: "Berechnungsfaktoren"
         },
       ],
       adminnavigation: false,
