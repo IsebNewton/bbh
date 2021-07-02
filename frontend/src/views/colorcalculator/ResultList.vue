@@ -8,22 +8,20 @@
     </h3>
 
     <div class="row align-items-center mb-3">
-      <div class="col-4">
-        <label class="text-shadow text-bold">Sie haben folgende Farbe gewählt: </label>
+      <div class="col-3">
+        <label class="text-shadow text-bold">Sie haben folgende Farbe gewählt:</label>
       </div>
       <div class="col-4">
-        <select
-          class="formfield"
+        <dropdown
           id="inputColor"
-          v-model="selectedParams.color">
-          <option
-              v-for="option in availableColors"
-              :key="option.id"
-              v-bind:value="option"
-          >{{option.color}}</option>
-        </select>
+          :items="availableColors"
+          :value="selectedParams.color"
+          @change="changedColor"
+          useText="color">
+        </dropdown>
       </div>
     </div>
+
     <b-button variant="primary" @click="goBack">Zurück</b-button>
     <product
       v-for="product in shownProducts"
@@ -36,6 +34,7 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
+import Dropdown from "../components/Dropdown";
 import Product from "./Product";
 
 export default {
@@ -52,6 +51,7 @@ export default {
     };
   },
   components: {
+    "dropdown": Dropdown,
     "product": Product,
   },
   computed: {
@@ -142,7 +142,10 @@ export default {
       else {
         this.shownProducts = this.availableProducts;
       }
-    }
+    },
+    changedColor(color) {
+      this.selectedParams.color = color;
+    },
   }
 }
 </script>
