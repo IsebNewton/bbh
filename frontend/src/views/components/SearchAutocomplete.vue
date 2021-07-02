@@ -47,12 +47,17 @@
         required: false,
         default: false,
       },
+      value: {
+        type: String,
+        required: false,
+        default: '',
+      }
     },
     data() {
       return {
         isOpen: false,
         results: [],
-        search: '',
+        search: this.value,
         isLoading: false,
         arrowCounter: -1,
       };
@@ -74,6 +79,7 @@
     methods: {
       setResult(result) {
         this.search = result;
+        this.$emit('input', this.search);
         this.isOpen = false;
       },
       filterResults() {

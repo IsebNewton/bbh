@@ -61,3 +61,16 @@ img {
 
 // Shame.css -------------------------------------------------------------------
 
+#autocompleteBrand > input {
+  // required to remove ugly border from autocomplete input in admin add product
+  border: none;
+  outline: none;
+}
+
+#admin-choose-color > .custom-control {
+  width: 125px;
+}
+
+#admin-choose-color > .custom-control > input {
+  margin-right: 10px;
+}
