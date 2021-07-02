@@ -19,9 +19,11 @@
             <b-form-input
               class="formfield"
               step="0.01"
-              id="inputName"
+              :id="'inputParameter' + parameter.id"
               v-model="parameters[parameter.id]"
               type="number"
+              min=0
+              oninput="validity.valid||(value='');"
               required
             ></b-form-input>
           </div>

@@ -22,7 +22,8 @@
               <select
                 class="formfield"
                 id="inputWallTexture"
-                v-model="formdata.wallTexture">
+                v-model="formdata.wallTexture"
+                required>
                 <option
                     v-for="option in parameterDict['Wandbeschaffenheit']"
                     :key="option.id"
@@ -40,7 +41,8 @@
               <select
                 class="formfield"
                 id="inputColor"
-                v-model="formdata.prevcolor">
+                v-model="formdata.prevcolor"
+                required>
                 <option
                     v-for="option in availableColors"
                     :key="option.id"
@@ -58,7 +60,8 @@
               <select
                 class="formfield"
                 id="inputColor"
-                v-model="formdata.color">
+                v-model="formdata.color"
+                required>
                 <option
                     v-for="option in availableColors"
                     :key="option.id"

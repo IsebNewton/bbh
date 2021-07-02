@@ -71,6 +71,8 @@
                 v-model="product.coverage"
                 type="number"
                 placeholder="Farbbedarf eingeben"
+                min=0
+                oninput="validity.valid||(value='');"
                 required
               ></b-form-input>
             </div>
@@ -140,6 +142,9 @@
                 v-model="sizeVariant.size"
                 type="number"
                 placeholder="Größe eingeben"
+                min=0
+                step="0.1"
+                oninput="validity.valid||(value='');"
                 required
               ></b-form-input>
             </div>
@@ -150,6 +155,9 @@
                 v-model="sizeVariant.price"
                 type="number"
                 placeholder="Preis eingeben"
+                min=0
+                step="0.01"
+                oninput="validity.valid||(value='');"
                 required
               ></b-form-input>
             </div>

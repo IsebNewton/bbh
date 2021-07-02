@@ -21,6 +21,8 @@
                   v-model="formdata.ceilingHeight"
                   type="number"
                   placeholder="Deckenhöhe (cm) eingeben"
+                  min=0
+                  oninput="validity.valid||(value='');"
                   required
                 ></b-form-input>
               </div>
@@ -52,6 +54,8 @@
                   v-model="wall.length"
                   type="number"
                   placeholder="Wandlänge (cm) eingeben"
+                  min=0
+                  oninput="validity.valid||(value='');"
                   required
                 ></b-form-input>
               </div>
@@ -79,6 +83,8 @@
                   v-model="resess.length"
                   type="number"
                   placeholder="Länge (cm) eingeben"
+                  min=0
+                  oninput="validity.valid||(value='');"
                   required
                 ></b-form-input>
               </div>
@@ -90,6 +96,8 @@
                   v-model="resess.height"
                   type="number"
                   placeholder="Breite (cm) eingeben"
+                  min=0
+                  oninput="validity.valid||(value='');"
                   required
                 ></b-form-input>
               </div>
