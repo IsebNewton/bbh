@@ -1,9 +1,9 @@
 <template>
-  <div class="container">
-    <h1 class="mb-5 text-center">Herzlich Willkommen bei Schönes Haus!</h1>
+  <div class="container my-auto">
+    <h1 class="mb-5 text-center text-shadow">Herzlich Willkommen bei Schönes Haus!</h1>
     <div class="row align-items-stretch">
       <div class="col-5 text-center">
-        <h2>Weiter zu Farbberechnung</h2>
+        <h2 class="text-shadow">Weiter zu Farbberechnung</h2>
         <div class="bg-secondary p-3">
           <p>
             Mit unserem innovativen Rechner bestimmen Sie die benötigte
@@ -17,7 +17,7 @@
         </div>
       </div>
       <div class="col-5 offset-2 text-center d-flex flex-column">
-        <h2>Weiter zum Sortiment</h2>
+        <h2 class="text-shadow">Weiter zum Sortiment</h2>
         <div class="bg-secondary p-3 flex-grow-1 d-flex flex-column">
           <p class="flex-grow-1">
             Stöbern Sie in unserem breitem Farben-Sortiment, es ist Zeit für

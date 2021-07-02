@@ -12,8 +12,22 @@ img {
 
 // Helper Classes --------------------------------------------------------------
 
+.bg-paint {
+  background: url("../../public/assets/background.png") center/cover;
+}
+
+.h-0 {
+  height: 0;
+}
+
 .img-contain {
   object-fit: contain;
+}
+
+.one-line {
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .text-shadow {
@@ -30,6 +44,10 @@ img {
 .bg-secondary,
 .btn-secondary {
   background-color: #ededed !important;
+}
+
+.text-secondary {
+  color: #ededed !important;
 }
 
 // Autocomplete Component -------------------------------------------------------------------

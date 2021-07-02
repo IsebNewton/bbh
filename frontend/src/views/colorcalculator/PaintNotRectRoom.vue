@@ -1,134 +1,131 @@
 <template>
-  <div class="container">
-    <h1 class="text-center text-shadow mb-5">
-      Bitte geben Sie die Daten der Zimmerwände ein.
-    </h1>
+  <div class="bg-paint d-flex w-100">
+    <div class="container my-auto">
+      <h1 class="text-center text-shadow mb-5">
+        Bitte geben Sie die Daten der Zimmerwände ein.
+      </h1>
 
-    <div class="row">
-      <div class="col-7 offset-1">
-        <b-form @submit="onSubmit" @reset="onReset">
+      <div class="row">
+        <div class="col-7 offset-1">
+          <b-form @submit="onSubmit" @reset="onReset">
+            <b-form @submit="addWall">
+              <div class="row align-items-center mb-3">
+                <div class="col-4">
+                  <label class="text-shadow text-bold">Deckenhöhe (cm):</label>
+                </div>
+                <div class="col-4">
+                  <b-form-input
+                    class="formfield"
+                    id="inputCeilingHeight"
+                    v-model="formdata.ceilingHeight"
+                    type="number"
+                    placeholder="Deckenhöhe (cm) eingeben"
+                    min="0"
+                    oninput="validity.valid||(value='');"
+                    required
+                  ></b-form-input>
+                </div>
+              </div>
 
-          <b-form @submit="addWall">
+              <div class="row align-items-center mb-3">
+                <div class="col-4">
+                  <label class="text-shadow text-bold">Wandname:</label>
+                </div>
+                <div class="col-4">
+                  <b-form-input
+                    class="formfield"
+                    id="inputWallName"
+                    v-model="wall.name"
+                    type="text"
+                    placeholder="z.B. Südwand"
+                  ></b-form-input>
+                </div>
+              </div>
 
-            <div class="row align-items-center mb-3">
-              <div class="col-4">
-                <label class="text-shadow text-bold">Deckenhöhe (cm):</label>
+              <div class="row align-items-center mb-3">
+                <div class="col-4">
+                  <label class="text-shadow text-bold">Wandlänge (cm):</label>
+                </div>
+                <div class="col-4">
+                  <b-form-input
+                    class="formfield"
+                    id="inputWallLength"
+                    v-model="wall.length"
+                    type="number"
+                    placeholder="Wandlänge (cm) eingeben"
+                    required
+                  ></b-form-input>
+                </div>
+                <div class="col-2">
+                  <b-button type="submit" variant="primary">
+                    hinzufügen
+                  </b-button>
+                </div>
               </div>
-              <div class="col-4">
-                <b-form-input
-                  class="formfield"
-                  id="inputCeilingHeight"
-                  v-model="formdata.ceilingHeight"
-                  type="number"
-                  placeholder="Deckenhöhe (cm) eingeben"
-                  min=0
-                  oninput="validity.valid||(value='');"
-                  required
-                ></b-form-input>
-              </div>
-            </div>
+            </b-form>
 
-            <div class="row align-items-center mb-3">
-              <div class="col-4">
-                <label class="text-shadow text-bold">Wandname:</label>
-              </div>
-              <div class="col-4">
-                <b-form-input
-                  class="formfield"
-                  id="inputWallName"
-                  v-model="wall.name"
-                  type="text"
-                  placeholder="z.B. Südwand"
-                ></b-form-input>
-              </div>
-            </div>
+            <b-form @submit="addRecess">
+              <div class="row align-items-center mb-3">
+                <div class="col-4">
+                  <label class="text-shadow text-bold">
+                    Aussparungen (cmxcm):
+                  </label>
+                </div>
+                <div class="col-3">
+                  <b-form-input
+                    class="formfield"
+                    id="inputCeilingHeight"
+                    v-model="resess.length"
+                    type="number"
+                    placeholder="Länge (cm) eingeben"
+                    min="0"
+                    oninput="validity.valid||(value='');"
+                    required
+                  ></b-form-input>
+                </div>
 
-            <div class="row align-items-center mb-3">
-              <div class="col-4">
-                <label class="text-shadow text-bold">Wandlänge (cm):</label>
+                <div class="col-3">
+                  <b-form-input
+                    class="formfield"
+                    id="inputCeilingHeight"
+                    v-model="resess.height"
+                    type="number"
+                    placeholder="Breite (cm) eingeben"
+                    min="0"
+                    oninput="validity.valid||(value='');"
+                    required
+                  ></b-form-input>
+                </div>
+                <div class="col-2">
+                  <b-button type="submit" variant="primary">
+                    hinzufügen
+                  </b-button>
+                </div>
               </div>
-              <div class="col-4">
-                <b-form-input
-                  class="formfield"
-                  id="inputWallLength"
-                  v-model="wall.length"
-                  type="number"
-                  placeholder="Wandlänge (cm) eingeben"
-                  min=0
-                  oninput="validity.valid||(value='');"
-                  required
-                ></b-form-input>
-              </div>
-              <div class="col-2">
-                <b-button type="submit" variant="primary">
-                  hinzufügen
-                </b-button>
-              </div>
-            </div>
+            </b-form>
 
+            <b-button variant="primary" @click="goBack">Zurück</b-button>
+            <b-button type="submit" variant="primary">Weiter</b-button>
           </b-form>
-
-          <b-form @submit="addRecess">
-            
-            <div class="row align-items-center mb-3">
-              <div class="col-4">
-                <label class="text-shadow text-bold">
-                  Aussparungen (cmxcm):
-                </label>
-              </div>
-              <div class="col-3">
-                <b-form-input
-                  class="formfield"
-                  id="inputCeilingHeight"
-                  v-model="resess.length"
-                  type="number"
-                  placeholder="Länge (cm) eingeben"
-                  min=0
-                  oninput="validity.valid||(value='');"
-                  required
-                ></b-form-input>
-              </div>
-
-              <div class="col-3">
-                <b-form-input
-                  class="formfield"
-                  id="inputCeilingHeight"
-                  v-model="resess.height"
-                  type="number"
-                  placeholder="Breite (cm) eingeben"
-                  min=0
-                  oninput="validity.valid||(value='');"
-                  required
-                ></b-form-input>
-              </div>
-              <div class="col-2">
-                <b-button type="submit" variant="primary">
-                  hinzufügen
-                </b-button>
-              </div>
-            </div>
-
-          </b-form>
-
-          <b-button variant="primary" @click="goBack">Zurück</b-button>
-          <b-button type="submit" variant="primary">Weiter</b-button>
-        </b-form>
-      </div>
-      <div class="col-4">
-        <recess-list 
-          title="Hinzugefügte Wände"
-          ref="refWallList"
-          :recesses="walls"
-          arrayname="walls"
-          class="mb-4">
-        </recess-list>
-        <recess-list
-          title="Hinzugefügte Aussparungen"
-          ref="refRecessList"
-          :recesses="recesses"
-          arrayname="recesses"
-          class="mb-4">
-        </recess-list>
+        </div>
+        <div class="col-4">
+          <recess-list
+            title="Hinzugefügte Wände"
+            ref="refWallList"
+            :recesses="walls"
+            arrayname="walls"
+            class="mb-4"
+          >
+          </recess-list>
+          <recess-list
+            title="Hinzugefügte Aussparungen"
+            ref="refRecessList"
+            :recesses="recesses"
+            arrayname="recesses"
+            class="mb-4"
+          >
+          </recess-list>
+        </div>
       </div>
     </div>
   </div>
@@ -142,7 +139,7 @@ export default {
     return {
       formdata: {
         wallLength: null,
-        ceilingHeight: null
+        ceilingHeight: null,
       },
       resess: {
         length: null,
@@ -150,17 +147,16 @@ export default {
       },
       wall: {
         name: null,
-        length: null
+        length: null,
       },
       recesses: [],
-      walls: []
+      walls: [],
     };
   },
   components: {
     "recess-list": RecessList,
   },
-  computed: {
-  },
+  computed: {},
   mounted() {
     this.$parent.title = "Farbbedarfsrechner";
     this.$parent.adminnavigation = false;
@@ -168,36 +164,36 @@ export default {
   },
   watch: {
     formdata: {
-      handler: function (newVal, oldVal) {
+      handler: function(newVal, oldVal) {
         this.saveData("paintNotRectRoomData", newVal);
       },
-      deep: true
+      deep: true,
     },
     recesses: {
-      handler: function (newVal, oldVal) {
+      handler: function(newVal, oldVal) {
         this.saveData("paintNotRectRoomRecesses", newVal);
       },
-      deep: true
+      deep: true,
     },
     walls: {
-      handler: function (newVal, oldVal) {
+      handler: function(newVal, oldVal) {
         this.saveData("paintNotRectRoomWalls", newVal);
       },
-      deep: true
-    }
+      deep: true,
+    },
   },
   methods: {
     onSubmit(event) {
       event.preventDefault();
       this.calculateArea();
       localStorage.setItem("lastView", "NichtRechteckigesZimmerStreichen");
-      this.$router.push({ name: 'Parameterauswahl' });
+      this.$router.push({ name: "Parameterauswahl" });
     },
     onReset(event) {
       event.preventDefault();
     },
     goBack() {
-      this.$router.push({ name: 'Farbrechner' });
+      this.$router.push({ name: "Farbrechner" });
     },
     addRecess(event) {
       event.preventDefault();

@@ -1,34 +1,32 @@
 <template>
-  <div class="container">
-    <h1 class="text-center text-shadow">
-      Auf Grundlage Ihrer Angaben empfehlen wir Ihnen die folgenden Produkte:
-    </h1>
-    <h3 class="text-shadow mb-5">
-      Sie haben folgende Fläche zu streichen: {{area}} m²
-    </h3>
+  <div class="container py-3">
+    <h2 class="text-center text-shadow">
+      Sie haben {{ area.toFixed(1) }} m² zu streichen
+    </h2>
 
-    <div class="row align-items-center mb-3">
-      <div class="col-3">
-        <label class="text-shadow text-bold">Sie haben folgende Farbe gewählt:</label>
-      </div>
-      <div class="col-4">
+    <div class="d-flex align-items-center justify-content-between my-3">
+      <b-button @click="goBack()" variant="primary">zurück</b-button>
+
+      <div>
+        <label class="text-shadow text-bold"> gewählte Farbe: </label>
         <dropdown
           id="inputColor"
           :items="availableColors"
           :value="selectedParams.color"
           @change="changedColor"
-          useText="color">
+          useText="color"
+        >
         </dropdown>
       </div>
     </div>
 
-    <b-button variant="primary" @click="goBack">Zurück</b-button>
     <product
+      class="mb-5"
       v-for="product in shownProducts"
       :key="product.id"
       :product="product"
-      :factorizedPaintArea="factorizedPaintArea">
-    </product>
+      :factorizedPaintArea="factorizedPaintArea"
+    ></product>
   </div>
 </template>
 
@@ -40,26 +38,26 @@ import Product from "./Product";
 export default {
   data() {
     return {
-        area: null,
-        factorizedPaintArea: null,
-        shownProducts: [],
-        selectedParams: {
-          wallTexture: null,
-          prevcolor: null,
-          color: null
+      area: null,
+      factorizedPaintArea: null,
+      shownProducts: [],
+      selectedParams: {
+        wallTexture: null,
+        prevcolor: null,
+        color: null,
       },
     };
   },
   components: {
-    "dropdown": Dropdown,
-    "product": Product,
+    dropdown: Dropdown,
+    product: Product,
   },
   computed: {
     ...mapState("color", ["availableColors"]),
     ...mapState("product", ["availableProducts"]),
-    ...mapState("parameter", ["availableParameters", "parameterDict"])
+    ...mapState("parameter", ["availableParameters", "parameterDict"]),
   },
-  mounted(){
+  mounted() {
     this.$parent.title = "Farbbedarfsrechner";
     this.$parent.adminnavigation = false;
     this.loadData();
@@ -77,25 +75,19 @@ export default {
   },
   watch: {
     selectedParams: {
-      handler: function (newVal, oldVal) {
+      handler: function(newVal, oldVal) {
         this.saveData(newVal);
         this.filterProducts();
       },
-      deep: true
+      deep: true,
     },
   },
   methods: {
-    ...mapActions("color", [
-      "getColors"
-    ]),
-    ...mapActions("product", [
-      "getProducts"
-    ]),
-    ...mapActions("parameter", [
-      "getParameters"
-    ]),
+    ...mapActions("color", ["getColors"]),
+    ...mapActions("product", ["getProducts"]),
+    ...mapActions("parameter", ["getParameters"]),
     goBack() {
-      this.$router.push({ name: 'Parameterauswahl' });
+      this.$router.push({ name: "Parameterauswahl" });
     },
     loadData() {
       var selectedParams = localStorage.getItem("selectedParams");
@@ -111,22 +103,27 @@ export default {
       localStorage.setItem("selectedParams", JSON.stringify(data));
     },
     calculateArea() {
-      var factorizedPaintArea = this.area * this.selectedParams.wallTexture.value;
-      if (this.selectedParams.prevcolor.brightness == this.selectedParams.color.brightness) {
-        factorizedPaintArea *= this.getPaintingTypeValue('gleiche Farbe');
-      }
-      else if (this.selectedParams.prevcolor.brightness < this.selectedParams.color.brightness) {
-        factorizedPaintArea *= this.getPaintingTypeValue('dunkel auf hell');
-      }
-      else {
-        factorizedPaintArea *= this.getPaintingTypeValue('hell auf dunkel');
+      var factorizedPaintArea =
+        this.area * this.selectedParams.wallTexture.value;
+      if (
+        this.selectedParams.prevcolor.brightness ==
+        this.selectedParams.color.brightness
+      ) {
+        factorizedPaintArea *= this.getPaintingTypeValue("gleiche Farbe");
+      } else if (
+        this.selectedParams.prevcolor.brightness <
+        this.selectedParams.color.brightness
+      ) {
+        factorizedPaintArea *= this.getPaintingTypeValue("dunkel auf hell");
+      } else {
+        factorizedPaintArea *= this.getPaintingTypeValue("hell auf dunkel");
       }
       this.factorizedPaintArea = factorizedPaintArea;
     },
     getPaintingTypeValue(label) {
-      for (var i = 0; i < this.parameterDict['Anstrichart'].length; i++) {
-        if (this.parameterDict['Anstrichart'][i]['label'] == label) {
-            return this.parameterDict['Anstrichart'][i]['value'];
+      for (var i = 0; i < this.parameterDict["Anstrichart"].length; i++) {
+        if (this.parameterDict["Anstrichart"][i]["label"] == label) {
+          return this.parameterDict["Anstrichart"][i]["value"];
         }
       }
     },
@@ -140,14 +137,13 @@ export default {
             }
           }
         }
-      }
-      else {
+      } else {
         this.shownProducts = this.availableProducts;
       }
     },
     changedColor(color) {
       this.selectedParams.color = color;
     },
-  }
-}
+  },
+};
 </script>

@@ -1,74 +1,89 @@
 <template>
-<div class="h-100 w-100 d-flex flex-column">
-  <topbar :title="title" :loggedIn="loggedIn"></topbar>
-  <div class="flex-fill d-flex align-items-stretch">
-    <sidebar-menu v-if="adminnavigation" :menu="menu" relative width="250px"></sidebar-menu>
-    <router-view class="m-auto" />
+  <div class="h-100 w-100 d-flex flex-column">
+    <topbar :title="title" :loggedIn="loggedIn"></topbar>
+
+    <div class="flex-fill overflow-auto d-flex">
+      <!-- <sidebar-menu
+        v-if="adminnavigation"
+        :menu="menu"
+        relative
+        width="250px"
+      ></sidebar-menu> -->
+      <router-view />
+    </div>
+
+    <footer class="bg-secondary p-3 d-flex justify-content-between">
+      <div>
+        <router-link class="me-3 text-body text-decoration-none" to="/">
+          Home
+        </router-link>
+        <router-link class="me-3 text-body text-decoration-none" to="/privacy">
+          Datenschutz
+        </router-link>
+        <router-link class="me-3 text-body text-decoration-none" to="/impress">
+          Impressum
+        </router-link>
+      </div>
+      <div>
+        <router-link class="text-secondary text-decoration-none" to="/login">
+          Login
+        </router-link>
+      </div>
+    </footer>
   </div>
-  
-  <footer class="bg-secondary p-3 d-flex justify-content-start">
-      <router-link class="me-3 text-body text-decoration-none" to="/">Home</router-link>
-      <router-link class="me-3 text-body text-decoration-none" to="/privacy">Datenschutz</router-link>
-      <router-link class="me-3 text-body text-decoration-none" to="/impress">Impressum</router-link>
-  </footer>
-</div>
 </template>
 
 <script>
 import { mapState, mapActions } from "vuex";
-import { SidebarMenu } from 'vue-sidebar-menu'
-import Topbar from './views/components/Topbar.vue';
+import { SidebarMenu } from "vue-sidebar-menu";
+import Topbar from "./views/components/Topbar.vue";
 
 export default {
   data() {
     return {
-      title: '',
+      title: "",
       menu: [
         {
           header: true,
-          title: 'BBH Administration',
-          hiddenOnCollapse: true
+          title: "BBH Administration",
+          hiddenOnCollapse: true,
         },
         {
-          href: '/products',
-          title: 'Produktübersicht',
-          icon: 'fa fa-user'
+          href: "/products",
+          title: "Produktübersicht",
+          icon: "fa fa-user",
         },
         {
-          href: '/calculationfactors',
-          title: 'Berechnungsfaktoren',
-          icon: 'fa fa-user'
+          href: "/calculationfactors",
+          title: "Berechnungsfaktoren",
+          icon: "fa fa-user",
         },
       ],
       adminnavigation: false,
-      loggedIn: false
+      loggedIn: false,
     };
   },
   components: {
     "sidebar-menu": SidebarMenu,
-    "topbar": Topbar
+    topbar: Topbar,
   },
   computed: {
     ...mapState("auth", ["isAuthorized"]),
   },
-  mounted(){
-  },
-  watch: {
-  },
+  mounted() {},
+  watch: {},
   methods: {
-    ...mapActions("auth", [
-      "getAuth"
-    ]),
+    ...mapActions("auth", ["getAuth"]),
     checkLoggedIn() {
       this.getAuth().then(
         function() {
           this.loggedIn = this.isAuthorized;
           if (!this.loggedIn) {
-            this.$router.push({ name: 'Login' });
+            this.$router.push({ name: "Login" });
           }
         }.bind(this)
       );
-    }
-  }
-}
+    },
+  },
+};
 </script>

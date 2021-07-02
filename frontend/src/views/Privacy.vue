@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div class="container my-auto">
     <h1>Datenschutz</h1>
     <p>
       Wir messen dem Datenschutz große Bedeutung bei. Die Erhebung und

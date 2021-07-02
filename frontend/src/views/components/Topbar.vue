@@ -3,21 +3,23 @@
     <router-link :to="links[0].path" exact>
       <b-img src="assets/logo.jpg" width="70px" alt="Schönes Haus"></b-img>
     </router-link>
-    <h2 class="mb-0 flex-grow-1 text-center text-white text-shadow">
+
+    <h2 class="m-0 flex-fill text-center text-white text-shadow">
       {{ title }}
     </h2>
-    <a
-      v-if="loggedIn"
-      class="btn btn-primary"
-      href="#/login">
-      Administration
-    </a>
-    <b-button
-      v-if="loggedIn"
-      variant="primary"
-      @click="logout">
-      Abmelden
-    </b-button>
+
+    <div v-if="loggedIn" class="p-2">
+      <a class="btn btn-secondary text-body text-shadow" href="#/login">
+        Administration
+      </a>
+      <b-button
+        class="ms-2 text-body text-shadow"
+        variant="secondary"
+        @click="logout"
+      >
+        Abmelden
+      </b-button>
+    </div>
   </header>
 </template>
 
@@ -29,34 +31,28 @@ export default {
   name: "Topbar",
   props: {
     title: String,
-    loggedIn: Boolean
+    loggedIn: Boolean,
   },
   data() {
     return {
-      links: this.$router.options.routes
+      links: this.$router.options.routes,
     };
   },
-  components: {
-  },
+  components: {},
   computed: {
     ...mapState("auth", ["isAuthorized"]),
   },
-  mounted(){
-  },
-  watch: {
-  },
+  mounted() {},
+  watch: {},
   methods: {
-    ...mapActions("auth", [
-      "getAuth",
-      "deleteAuth"
-    ]),
+    ...mapActions("auth", ["getAuth", "deleteAuth"]),
     logout() {
       this.deleteAuth().then(
         function() {
-          this.$router.push({ name: 'Login' });
+          this.$router.push({ name: "Login" });
         }.bind(this)
       );
-    }
-  }
+    },
+  },
 };
 </script>

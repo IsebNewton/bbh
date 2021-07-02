@@ -1,69 +1,76 @@
 <template>
-  <div class="container">
-    <h1 class="text-center text-shadow mb-5">
-      Bitte geben Sie die Daten der Wand ein.
-    </h1>
-    <h3 class="text-shadow mb-5">
-        Zu streichende Fläche: {{area}} m²
-    </h3>
-    <h3 class="text-shadow mb-5">
-        Um den Farbbedarf genauer ermitteln zu können, geben Sie die folgenden Parameter an:
-    </h3>
+  <div class="bg-paint d-flex w-100">
+    <div class="container my-auto">
+      <h1 class="text-center text-shadow mb-5">
+        Bitte geben Sie die Daten der Wand ein.
+      </h1>
+      <h3 class="text-shadow mb-5">Zu streichende Fläche: {{ area }} m²</h3>
+      <h3 class="text-shadow mb-5">
+        Um den Farbbedarf genauer ermitteln zu können, geben Sie die folgenden
+        Parameter an:
+      </h3>
 
-    <div class="row">
-      <div class="col-7 offset-1">
-        <b-form @submit="onSubmit" @reset="onReset">
+      <div class="row">
+        <div class="col-7 offset-1">
+          <b-form @submit="onSubmit" @reset="onReset">
+            <div class="row align-items-center mb-3">
+              <div class="col-4">
+                <label class="text-shadow text-bold">Wandbeschaffenheit:</label>
+              </div>
+              <div class="col-4">
+                <dropdown
+                  id="inputWallTexture"
+                  :items="parameterDict['Wandbeschaffenheit']"
+                  :value="formdata.wallTexture"
+                  @change="changedWallTexture"
+                  useText="label"
+                >
+                </dropdown>
+              </div>
+            </div>
 
-          <div class="row align-items-center mb-3">
-            <div class="col-4">
-              <label class="text-shadow text-bold">Wandbeschaffenheit:</label>
+            <div class="row align-items-center mb-3">
+              <div class="col-4">
+                <label class="text-shadow text-bold"
+                  >Welche Farbe ist aktuell aufgetragen?</label
+                >
+              </div>
+              <div class="col-4">
+                <dropdown
+                  id="inputPrevcolor"
+                  :items="availableColors"
+                  :value="formdata.prevcolor"
+                  @change="changedPrevcolor"
+                  useText="color"
+                >
+                </dropdown>
+              </div>
             </div>
-            <div class="col-4">
-              <dropdown
-                id="inputWallTexture"
-                :items="parameterDict['Wandbeschaffenheit']"
-                :value="formdata.wallTexture"
-                @change="changedWallTexture"
-                useText="label">
-              </dropdown>
-            </div>
-          </div>
 
-          <div class="row align-items-center mb-3">
-            <div class="col-4">
-              <label class="text-shadow text-bold">Welche Farbe ist aktuell aufgetragen?</label>
+            <div class="row align-items-center mb-3">
+              <div class="col-4">
+                <label class="text-shadow text-bold"
+                  >Welche Farbe soll die Wand haben?</label
+                >
+              </div>
+              <div class="col-4">
+                <dropdown
+                  id="inputColor"
+                  :items="availableColors"
+                  :value="formdata.color"
+                  @change="changedColor"
+                  useText="color"
+                >
+                </dropdown>
+              </div>
             </div>
-            <div class="col-4">
-              <dropdown
-                id="inputPrevcolor"
-                :items="availableColors"
-                :value="formdata.prevcolor"
-                @change="changedPrevcolor"
-                useText="color">
-              </dropdown>
-            </div>
-          </div>
 
-          <div class="row align-items-center mb-3">
-            <div class="col-4">
-              <label class="text-shadow text-bold">Welche Farbe soll die Wand haben?</label>
-            </div>
-            <div class="col-4">
-              <dropdown
-                id="inputColor"
-                :items="availableColors"
-                :value="formdata.color"
-                @change="changedColor"
-                useText="color">
-              </dropdown>
-            </div>
-          </div>
-
-          <b-button variant="primary" @click="goBack">Zurück</b-button>
-          <b-button type="submit" variant="primary">Weiter</b-button>
-        </b-form>
+            <b-button variant="primary" @click="goBack">Zurück</b-button>
+            <b-button type="submit" variant="primary">Weiter</b-button>
+          </b-form>
+        </div>
+        <recess-list ref="refRecessList" class="col-4"></recess-list>
       </div>
-      <recess-list ref="refRecessList" class="col-4"></recess-list>
     </div>
   </div>
 </template>
@@ -79,18 +86,18 @@ export default {
       formdata: {
         wallTexture: null,
         prevcolor: null,
-        color: null
+        color: null,
       },
-      area: 0
+      area: 0,
     };
   },
   components: {
-    "dropdown": Dropdown,
-    "recess-list": RecessList
+    dropdown: Dropdown,
+    "recess-list": RecessList,
   },
   computed: {
     ...mapState("color", ["availableColors"]),
-    ...mapState("parameter", ["availableParameters", "parameterDict"])
+    ...mapState("parameter", ["availableParameters", "parameterDict"]),
   },
   mounted() {
     this.$parent.title = "Farbbedarfsrechner";
@@ -101,22 +108,18 @@ export default {
   },
   watch: {
     formdata: {
-      handler: function (newVal, oldVal) {
+      handler: function(newVal, oldVal) {
         this.saveData(newVal);
       },
-      deep: true
+      deep: true,
     },
   },
   methods: {
-    ...mapActions("color", [
-      "getColors"
-    ]),
-    ...mapActions("parameter", [
-      "getParameters"
-    ]),
+    ...mapActions("color", ["getColors"]),
+    ...mapActions("parameter", ["getParameters"]),
     onSubmit(event) {
       event.preventDefault();
-      this.$router.push({ name: 'Resultlist' });
+      this.$router.push({ name: "Resultlist" });
     },
     onReset(event) {
       event.preventDefault();
@@ -148,7 +151,7 @@ export default {
     },
     changedWallTexture(wallTexture) {
       this.formdata.wallTexture = wallTexture;
-    }
+    },
   },
 };
 </script>

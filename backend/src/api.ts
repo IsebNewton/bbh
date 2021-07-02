@@ -192,7 +192,6 @@ async function loadData(config: Config) {
       sizeVariants: eval(product["sizeVariants"]),
       color: eval(product["color"]),
       images: eval(product["images"]),
-      recommended: eval(product["recommended"]),
     })),
     "id"
   );
