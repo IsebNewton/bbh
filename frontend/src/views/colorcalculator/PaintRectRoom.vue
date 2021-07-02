@@ -18,6 +18,8 @@
                 v-model="formdata.roomLength"
                 type="number"
                 placeholder="Zimmerlänge (cm) eingeben"
+                min=0
+                oninput="validity.valid||(value='');"
                 required
               ></b-form-input>
             </div>
@@ -28,6 +30,8 @@
                 v-model="formdata.roomWidth"
                 type="number"
                 placeholder="Zimmerbreite (cm) eingeben"
+                min=0
+                oninput="validity.valid||(value='');"
                 required
               ></b-form-input>
             </div>
@@ -44,6 +48,8 @@
                 v-model="formdata.ceilingHeight"
                 type="number"
                 placeholder="Deckenhöhe (cm) eingeben"
+                min=0
+                oninput="validity.valid||(value='');"
                 required
               ></b-form-input>
             </div>
@@ -63,6 +69,8 @@
                   v-model="resess.length"
                   type="number"
                   placeholder="Länge (cm) eingeben"
+                  min=0
+                  oninput="validity.valid||(value='');"
                   required
                 ></b-form-input>
               </div>
@@ -73,6 +81,8 @@
                   v-model="resess.height"
                   type="number"
                   placeholder="Breite (cm) eingeben"
+                  min=0
+                  oninput="validity.valid||(value='');"
                   required
                 ></b-form-input>
               </div>

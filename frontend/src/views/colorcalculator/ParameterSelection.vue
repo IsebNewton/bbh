@@ -19,16 +19,13 @@
               <label class="text-shadow text-bold">Wandbeschaffenheit:</label>
             </div>
             <div class="col-4">
-              <select
-                class="formfield"
+              <dropdown
                 id="inputWallTexture"
-                v-model="formdata.wallTexture">
-                <option
-                    v-for="option in parameterDict['Wandbeschaffenheit']"
-                    :key="option.id"
-                    v-bind:value="option"
-                >{{option.label}}</option>
-              </select>
+                :items="parameterDict['Wandbeschaffenheit']"
+                :value="formdata.wallTexture"
+                @change="changedWallTexture"
+                useText="label">
+              </dropdown>
             </div>
           </div>
 
@@ -37,16 +34,13 @@
               <label class="text-shadow text-bold">Welche Farbe ist aktuell aufgetragen?</label>
             </div>
             <div class="col-4">
-              <select
-                class="formfield"
-                id="inputColor"
-                v-model="formdata.prevcolor">
-                <option
-                    v-for="option in availableColors"
-                    :key="option.id"
-                    v-bind:value="option"
-                >{{option.color}}</option>
-              </select>
+              <dropdown
+                id="inputPrevcolor"
+                :items="availableColors"
+                :value="formdata.prevcolor"
+                @change="changedPrevcolor"
+                useText="color">
+              </dropdown>
             </div>
           </div>
 
@@ -55,16 +49,13 @@
               <label class="text-shadow text-bold">Welche Farbe soll die Wand haben?</label>
             </div>
             <div class="col-4">
-              <select
-                class="formfield"
+              <dropdown
                 id="inputColor"
-                v-model="formdata.color">
-                <option
-                    v-for="option in availableColors"
-                    :key="option.id"
-                    v-bind:value="option"
-                >{{option.color}}</option>
-              </select>
+                :items="availableColors"
+                :value="formdata.color"
+                @change="changedColor"
+                useText="color">
+              </dropdown>
             </div>
           </div>
 
@@ -79,6 +70,7 @@
 
 <script>
 import { mapState, mapActions } from "vuex";
+import Dropdown from "../components/Dropdown";
 import RecessList from "../components/RecessList";
 
 export default {
@@ -93,7 +85,8 @@ export default {
     };
   },
   components: {
-    "recess-list": RecessList,
+    "dropdown": Dropdown,
+    "recess-list": RecessList
   },
   computed: {
     ...mapState("color", ["availableColors"]),
@@ -147,6 +140,15 @@ export default {
     saveData(data) {
       localStorage.setItem("selectedParams", JSON.stringify(data));
     },
+    changedColor(color) {
+      this.formdata.color = color;
+    },
+    changedPrevcolor(prevcolor) {
+      this.formdata.prevcolor = prevcolor;
+    },
+    changedWallTexture(wallTexture) {
+      this.formdata.wallTexture = wallTexture;
+    }
   },
 };
 </script>

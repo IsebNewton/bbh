@@ -71,6 +71,8 @@
               v-model="product.coverage"
               type="number"
               placeholder="Farbbedarf eingeben"
+              min="0"
+              oninput="validity.valid||(value='');"
               required
             ></b-form-input>
           </div>
@@ -100,7 +102,12 @@
               :options="availableColors"
               value-field="id"
               text-field="color"
-              class="d-flex flex-row flex-wrap justify-content-start align-items-start"
+              class="
+                d-flex
+                flex-row flex-wrap
+                justify-content-start
+                align-items-start
+              "
             ></b-form-checkbox-group>
           </div>
         </div>
@@ -139,6 +146,8 @@
                 type="number"
                 step="any"
                 placeholder="Größe eingeben"
+                min="0"
+                oninput="validity.valid||(value='');"
                 required
               ></b-form-input>
             </b-input-group>
@@ -152,6 +161,8 @@
                 type="number"
                 step="any"
                 placeholder="Preis eingeben"
+                min="0"
+                oninput="validity.valid||(value='');"
                 required
               ></b-form-input>
             </b-input-group>

@@ -20,13 +20,15 @@
                   parameter.label
                 }}</label>
               </div>
-              <div class="col-8 px-0">
+              <div class="col-8">
                 <b-form-input
                   class="formfield"
                   step="0.01"
-                  id="inputName"
+                  :id="'inputParameter' + parameter.id"
                   v-model="parameters[parameter.id]"
                   type="number"
+                  min="0"
+                  oninput="validity.valid||(value='');"
                   required
                 ></b-form-input>
               </div>
@@ -36,7 +38,9 @@
 
           <div class="row">
             <div class="col-1">
-              <span class="badge bg-success" v-if="showSaveStatus">Gespeichert</span>
+              <span class="badge bg-success" v-if="showSaveStatus"
+                >Gespeichert</span
+              >
             </div>
             <div class="col-11 text-end">
               <b-button type="reset" variant="danger">Zurücksetzen</b-button>
