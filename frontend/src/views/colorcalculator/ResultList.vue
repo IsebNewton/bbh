@@ -134,9 +134,11 @@ export default {
       this.shownProducts = [];
       if (this.selectedParams.color) {
         for (var i = 0; i < this.availableProducts.length; i++) {
-            if (this.availableProducts[i].color == this.selectedParams.color.id) {
+          for (var j = 0; j < this.availableProducts[i].color.length; j++) {
+            if (this.availableProducts[i].color[j] == this.selectedParams.color.id) {
                 this.shownProducts.push(this.availableProducts[i]);
             }
+          }
         }
       }
       else {
