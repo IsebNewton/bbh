@@ -1,7 +1,7 @@
 <template>
 <div class="h-100 w-100 d-flex flex-column">
   <topbar :title="title" :loggedIn="loggedIn"></topbar>
-  <div class="flex-fill overflow-auto d-flex">
+  <div class="flex-fill d-flex align-items-stretch">
     <sidebar-menu v-if="adminnavigation" :menu="menu" relative width="250px"></sidebar-menu>
     <router-view class="m-auto" />
   </div>
