@@ -98,7 +98,6 @@ Content-Type: application/json
   "description": "Die einzige Farbe, die man braucht. Warum etwas geringeres nehmen als den Gold-Standard",
   "brand": "Alpina",
   "link": "https://www.obi.de/effektfarben/alpina-farbrezepte-metall-effekt-gold-1-liter/p/3800489",
-  "price": "-",
   "sizeVariants": [
     {"size":  1,"price":  5.99},
     {"size":  2,"price": 10.99},
@@ -111,8 +110,7 @@ Content-Type: application/json
   "hexColor": "#FFD700",
   "coverage": 70,
   "images": ["https://c8.alamy.com/compde/cnngna/textur-von-einer-betonmauer-bedeckt-metallic-lackierung-mit-goldenen-flecken-cnngna.jpg"],
-  "type": "wall paint",
-  "recommended": [60,63,66]
+  "type": "wall paint"
 }
 
 ###
@@ -125,7 +123,6 @@ Content-Type: application/json
   "description": "Die einzige Farbe, die man braucht. Warum etwas geringeres nehmen als den Gold-Standard",
   "brand": "Alpina",
   "link": "https://www.obi.de/effektfarben/alpina-farbrezepte-metall-effekt-gold-1-liter/p/3800489",
-  "price": "-",
   "sizeVariants": [
     {"size":  1,"price":  5.99},
     {"size":  2,"price": 10.99},
@@ -138,8 +135,7 @@ Content-Type: application/json
   "hexColor": "#FFD700",
   "coverage": 70,
   "images": ["https://c8.alamy.com/compde/cnngna/textur-von-einer-betonmauer-bedeckt-metallic-lackierung-mit-goldenen-flecken-cnngna.jpg"],
-  "type": "wall paint",
-  "recommended": [60,63,66]
+  "type": "wall paint"
 }
 
 ###
