@@ -4,7 +4,7 @@
       <h1 class="text-center text-shadow mb-5">
         Bitte geben Sie die Daten der Wand ein.
       </h1>
-      <h3 class="text-center text-shadow mb-5">Zu streichende Fläche: {{ area }} m²</h3>
+      <h3 class="text-center text-shadow mb-5">Zu streichende Fläche: {{ area.toFixed(1) }} m²</h3>
       <h3 class="text-center text-shadow mb-5">
         Um den Farbbedarf genauer ermitteln zu können, geben Sie die folgenden
         Parameter an:
