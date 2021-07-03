@@ -8,7 +8,7 @@
         :menu="menu"
         relative
         hideToggle
-        width="250px"
+        width="200px"
       ></sidebar-menu>
       <router-view />
     </div>

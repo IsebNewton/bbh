@@ -16,18 +16,8 @@ img {
   background: url("../../public/assets/background.png") center/cover;
 }
 
-.h-0 {
-  height: 0;
-}
-
 .img-contain {
   object-fit: contain;
-}
-
-.one-line {
-  overflow-x: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
 }
 
 .text-shadow {
@@ -78,6 +68,12 @@ img {
 }
 
 // Shame.css -------------------------------------------------------------------
+
+.action-icon {
+  height: 1.2em;
+  max-width: none;
+  width: 1.2em;
+}
 
 #autocompleteBrand > input {
   // required to remove ugly border from autocomplete input in admin add product

@@ -13,7 +13,6 @@
       :items="availableProducts"
       :fields="fields"
       :busy="isBusy"
-      class="mt-3"
       outlined
     >
       <template #cell(images)="data">
@@ -32,36 +31,42 @@
       </template>
       <template #cell(sizeVariants)="data">
         <div
-          class="text-nowrap"
+          class="row text-nowrap text-right"
           v-for="sizeVariant in data.item.sizeVariants"
           :key="sizeVariant.key"
         >
-          <label>{{ sizeVariant.size }} L</label>
-          <label>{{ sizeVariant.price }} €</label>
+          <div class="col-6">{{ sizeVariant.size }} L</div>
+          <div class="col-6">{{ sizeVariant.price }} €</div>
         </div>
       </template>
       <template #cell(link)="data">
-        <a :href="data.item.link" target="_blank">{{ data.item.link }}</a>
+        <a :href="data.item.link" target="_blank">
+          {{ data.item.link }}
+        </a>
       </template>
       <template #cell(edit)="data">
-        <b-button variant="outline-secondary" @click="showEditTaskModal(data)">
+        <div
+          class="border-secondary rounded border p-1"
+          @click="showEditTaskModal(data)"
+        >
           <b-img
-            left
+            class="action-icon"
             src="assets/edit.png"
-            width="150px"
             alt="Produkt bearbeiten"
-          ></b-img>
-        </b-button>
+          />
+        </div>
       </template>
       <template #cell(delete)="data">
-        <b-button variant="outline-danger" @click="confirmRemoveProduct(data)">
+        <div
+          class="border-danger rounded border p-1"
+          @click="confirmRemoveProduct(data)"
+        >
           <b-img
-            left
+            class="action-icon"
             src="assets/delete.png"
-            width="150px"
             alt="Produkt löschen"
-          ></b-img>
-        </b-button>
+          />
+        </div>
       </template>
       <template #table-busy>
         <div class="text-center text-danger my-2">

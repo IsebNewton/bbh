@@ -13,10 +13,10 @@
           :key="parameter.key"
           class="row align-items-center mb-3 pe-0"
         >
-          <div class="col-2">
+          <div class="col-6 col-md-4 col-lg-3 col-xl-2">
             <label class="text-shadow text-bold">{{ parameter.label }}</label>
           </div>
-          <div class="col-2">
+          <div class="col-6 col-md-4 col-lg-3 col-xl-2">
             <b-form-input
               step="0.01"
               :id="'inputParameter' + parameter.id"
@@ -31,14 +31,17 @@
       </div>
 
       <div class="row">
-        <div class="col-1">
-          <span class="badge bg-success" v-if="showSaveStatus">
-            Gespeichert
-          </span>
-        </div>
-        <div class="col-3 text-end">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-4 text-end">
           <b-button type="reset" variant="danger">Zurücksetzen</b-button>
           <b-button type="submit" variant="primary">Speichern</b-button>
+        </div>
+      </div>
+
+      <div class="row mt-3" v-if="showSaveStatus">
+        <div class="col-12 col-md-8 col-lg-6 col-xl-4 text-end">
+          <span class="badge bg-success">
+            Gespeichert
+          </span>
         </div>
       </div>
     </b-form>

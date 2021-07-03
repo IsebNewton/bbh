@@ -16,7 +16,7 @@
             :style="'width:25px; background-color:' + innerValue.hexCode + ';'"
             class="ratio ratio-1x1 border rounded-circle me-2"
           ></div>
-          <div class="flex-fill one-line text-start">
+          <div class="flex-fill text-truncate text-start">
             <label>{{ innerValue[useText] }}</label>
           </div>
           <span>&#9660;</span>
