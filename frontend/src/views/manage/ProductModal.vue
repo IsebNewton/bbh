@@ -19,7 +19,6 @@
           </div>
           <div class="col-8">
             <b-form-input
-              class="formfield"
               id="inputName"
               v-model="product.name"
               type="text"
@@ -35,7 +34,7 @@
           </div>
           <div class="col-8">
             <search-autocomplete
-              class="formfield form-control"
+              class="form-control"
               id="autocompleteBrand"
               v-model="product.brand"
               :items="productBrands"
@@ -51,7 +50,6 @@
           </div>
           <div class="col-8">
             <b-form-textarea
-              class="formfield"
               id="textareaDescription"
               v-model="product.description"
               placeholder="Beschreibung eingeben"
@@ -66,7 +64,6 @@
           </div>
           <div class="col-8">
             <b-form-input
-              class="formfield"
               id="inputName"
               v-model="product.coverage"
               type="number"
@@ -84,7 +81,7 @@
           </div>
           <div class="col-8">
             <b-form-select
-              class="formfield form-select"
+              class="form-select"
               v-model="product.type"
               :options="productTypes"
             ></b-form-select>
@@ -140,7 +137,6 @@
           <div class="col-4">
             <b-input-group append="Liter">
               <b-form-input
-                class="formfield"
                 id="inputSize"
                 v-model="sizeVariant.size"
                 type="number"
@@ -155,7 +151,6 @@
           <div class="col-3">
             <b-input-group append="€">
               <b-form-input
-                class="formfield"
                 id="inputPrice"
                 v-model="sizeVariant.price"
                 type="number"
@@ -188,7 +183,6 @@
           </div>
           <div class="col-8">
             <b-form-input
-              class="formfield"
               id="inputImageurl"
               v-model="product.link"
               type="text"
@@ -204,7 +198,6 @@
           </div>
           <div class="col-8">
             <b-form-input
-              class="formfield"
               id="inputImageurl"
               v-model="product.images[0]"
               type="text"
@@ -287,14 +280,14 @@ export default {
       }
       if (this.editMode == true) {
         this.putProduct({ id: id, data: this.exampleProduct }).then(
-          function () {
+          function() {
             this.showProductModal = false;
             this.$parent.fetchProducts();
           }.bind(this)
         );
       } else {
         this.postProduct(this.exampleProduct).then(
-          function () {
+          function() {
             this.showProductModal = false;
             this.$parent.fetchProducts();
           }.bind(this)

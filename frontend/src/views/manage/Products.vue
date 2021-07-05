@@ -30,14 +30,16 @@
         </label>
       </template>
       <template #cell(sizeVariants)="data">
-        <div
-          class="row text-nowrap text-right"
-          v-for="sizeVariant in data.item.sizeVariants"
-          :key="sizeVariant.key"
-        >
-          <div class="col-6">{{ sizeVariant.size }} L</div>
-          <div class="col-6">{{ sizeVariant.price }} €</div>
-        </div>
+        <table>
+          <tr
+            class="text-nowrap text-right"
+            v-for="sizeVariant in data.item.sizeVariants"
+            :key="sizeVariant.key"
+          >
+            <td>{{ sizeVariant.size }} L</td>
+            <td class="ps-1">{{ sizeVariant.price }} €</td>
+          </tr>
+        </table>
       </template>
       <template #cell(link)="data">
         <a :href="data.item.link" target="_blank">

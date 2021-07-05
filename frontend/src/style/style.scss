@@ -40,7 +40,13 @@ img {
   color: #ededed !important;
 }
 
-// Autocomplete Component -------------------------------------------------------------------
+// Shame.css -------------------------------------------------------------------
+
+.action-icon {
+  height: 1.2em;
+  max-width: none;
+  width: 1.2em;
+}
 
 .autocomplete {
   position: relative;
@@ -67,14 +73,6 @@ img {
   color: white;
 }
 
-// Shame.css -------------------------------------------------------------------
-
-.action-icon {
-  height: 1.2em;
-  max-width: none;
-  width: 1.2em;
-}
-
 #autocompleteBrand > input {
   // required to remove ugly border from autocomplete input in admin add product
   border: none;
@@ -87,4 +85,9 @@ img {
 
 #admin-choose-color > .custom-control > input {
   margin-right: 10px;
+}
+
+.modal-dialog .modal-header button.close.text-light {
+  // Product-Modal is a bootstrap component and it has a bug in the color display
+  color: #212529 !important;
 }
