@@ -40,7 +40,7 @@ import Product from "./Product";
 export default {
   data() {
     return {
-      area: null,
+      area: 0,
       factorizedPaintArea: null,
       shownProducts: [],
       selectedParams: {
