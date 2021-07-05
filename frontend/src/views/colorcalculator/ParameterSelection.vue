@@ -27,6 +27,11 @@
                 >
                 </dropdown>
               </div>
+              <div v-if="!isValidWallTexture" class="col-4">
+                <label class="text-shadow text-bold"
+                  >Bitte wählen Sie eine Wandbeschaffenheit aus!</label
+                >
+              </div>
             </div>
 
             <div class="row align-items-center mb-3">
@@ -45,6 +50,11 @@
                 >
                 </dropdown>
               </div>
+              <div v-if="!isValidPrevcolor" class="col-4">
+                <label class="text-shadow text-bold"
+                  >Bitte wählen Sie eine Farbe aus!</label
+                >
+              </div>
             </div>
 
             <div class="row align-items-center mb-3">
@@ -62,6 +72,11 @@
                   useText="color"
                 >
                 </dropdown>
+              </div>
+              <div v-if="!isValidColor" class="col-4">
+                <label class="text-shadow text-bold"
+                  >Bitte wählen Sie eine Farbe aus!</label
+                >
               </div>
             </div>
 
@@ -89,6 +104,9 @@ export default {
         color: null,
       },
       area: 0,
+      isValidWallTexture: true,
+      isValidPrevcolor: true,
+      isValidColor: true
     };
   },
   components: {
@@ -119,7 +137,10 @@ export default {
     ...mapActions("parameter", ["getParameters"]),
     onSubmit(event) {
       event.preventDefault();
-      this.$router.push({ name: "Resultlist" });
+      this.checkUserInput();
+      if (this.isValidWallTexture && this.isValidPrevcolor && this.isValidColor) {
+        this.$router.push({ name: "Resultlist" });
+      }
     },
     onReset(event) {
       event.preventDefault();
@@ -152,6 +173,11 @@ export default {
     changedWallTexture(wallTexture) {
       this.formdata.wallTexture = wallTexture;
     },
-  },
+    checkUserInput() {
+      this.formdata.wallTexture ? this.isValidWallTexture = true : this.isValidWallTexture = false;
+      this.formdata.prevcolor ? this.isValidPrevcolor = true : this.isValidPrevcolor = false;
+      this.formdata.color ? this.isValidColor = true : this.isValidColor = false;
+    }
+  }
 };
 </script>
