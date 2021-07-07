@@ -19,8 +19,8 @@
                   v-model="formdata.roomLength"
                   type="number"
                   placeholder="Zimmerlänge (cm) eingeben"
+                  step="any"
                   min="0"
-                  oninput="validity.valid||(value='');"
                   required
                 ></b-form-input>
               </div>
@@ -31,8 +31,8 @@
                   v-model="formdata.roomWidth"
                   type="number"
                   placeholder="Zimmerbreite (cm) eingeben"
+                  step="any"
                   min="0"
-                  oninput="validity.valid||(value='');"
                   required
                 ></b-form-input>
               </div>

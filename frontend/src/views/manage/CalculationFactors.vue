@@ -18,12 +18,11 @@
           </div>
           <div class="col-6 col-md-4 col-lg-3 col-xl-2">
             <b-form-input
-              step="0.01"
+              step="any"
               :id="'inputParameter' + parameter.id"
               v-model="parameters[parameter.id]"
               type="number"
               min="0"
-              oninput="validity.valid||(value='');"
               required
             ></b-form-input>
           </div>

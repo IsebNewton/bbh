@@ -20,8 +20,8 @@
                     v-model="formdata.ceilingHeight"
                     type="number"
                     placeholder="Deckenhöhe (cm) eingeben"
+                    step="any"
                     min="0"
-                    oninput="validity.valid||(value='');"
                     required
                   ></b-form-input>
                 </div>
@@ -78,8 +78,8 @@
                     v-model="resess.length"
                     type="number"
                     placeholder="Länge (cm) eingeben"
+                    step="any"
                     min="0"
-                    oninput="validity.valid||(value='');"
                     required
                   ></b-form-input>
                 </div>
@@ -91,8 +91,8 @@
                     v-model="resess.height"
                     type="number"
                     placeholder="Breite (cm) eingeben"
+                    step="any"
                     min="0"
-                    oninput="validity.valid||(value='');"
                     required
                   ></b-form-input>
                 </div>

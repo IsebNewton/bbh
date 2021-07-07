@@ -60,16 +60,16 @@
 
         <div class="row align-items-center mb-3">
           <div class="col-3 text-end">
-            <label class="text-shadow text-bold">Farbbedarf:</label>
+            <label class="text-shadow text-bold">Farbbedarf (ml/m²):</label>
           </div>
           <div class="col-8">
             <b-form-input
               id="inputName"
               v-model="product.coverage"
               type="number"
+              step="any"
               placeholder="Farbbedarf eingeben"
               min="0"
-              oninput="validity.valid||(value='');"
               required
             ></b-form-input>
           </div>
@@ -143,7 +143,6 @@
                 step="any"
                 placeholder="Größe eingeben"
                 min="0"
-                oninput="validity.valid||(value='');"
                 required
               ></b-form-input>
             </b-input-group>
@@ -157,7 +156,6 @@
                 step="any"
                 placeholder="Preis eingeben"
                 min="0"
-                oninput="validity.valid||(value='');"
                 required
               ></b-form-input>
             </b-input-group>

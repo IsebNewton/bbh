@@ -25,8 +25,8 @@
         <label v-else>Kein Bild hinterlegt!</label>
       </template>
       <template #cell(color)="data">
-        <label v-for="colorId in data.item.color" :key="colorId.key">
-          {{ colorDict[colorId] }}
+        <label v-for="colorId in data.item.color" :key="colorId">
+          {{ colorDict[colorId] + (data.item.color.length - 1 > data.item.color.indexOf(colorId) ? ", " : "") }}
         </label>
       </template>
       <template #cell(sizeVariants)="data">
@@ -128,7 +128,7 @@ export default {
         },
         {
           key: "coverage",
-          label: "Farbbedarf",
+          label: "Farbbedarf (ml/m²)",
         },
         {
           key: "images",
